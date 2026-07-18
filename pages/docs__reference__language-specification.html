@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Language Specification · Alef</title>
+  <link rel="icon" href="../assets/alef-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="../index.html"><img src="../assets/alef-logo.svg" alt="Alef"><span>Alef</span></a>
+    <nav><div class="nav-label">Start Here</div><a href="book__01-why-alef-is-a-language.html">1. Learning Alef From Zero</a><a href="book__02-installing-and-running.html">2. Installing And Running Alef</a><a href="book__03-your-first-program.html">3. Your First Alef Program</a><a href="docs__getting-started__quickstart.html">Quickstart</a><a href="docs__getting-started__project-structure.html">Project Structure</a><div class="nav-label">Language Guide</div><a href="book__04-values-bindings-functions.html">4. Syntax Fundamentals</a><a href="book__05-control-flow.html">5. Control Flow</a><a href="book__06-collections-data-modeling.html">6. Collections And Data Modeling</a><a href="book__07-results-options-errors.html">7. Results, Options, And Errors</a><a href="book__08-modules-project-structure.html">8. Modules And Project Structure</a><a href="docs__language__tour.html">Language Tour</a><a href="docs__language__variables.html">Variables</a><a href="docs__language__strings.html">Strings</a><a href="docs__language__functions.html">Functions</a><a href="docs__language__control-flow.html">Control Flow Guide</a><a href="docs__language__collections.html">Collections</a><a href="docs__language__structs-enums.html">Structs And Enums</a><a href="docs__language__results-errors.html">Results And Errors</a><a href="docs__language__modules.html">Modules</a><a href="docs__language__composition-ioc-di-aop.html">Composition, IoC, DI, And AOP</a><div class="nav-label">Runtime And Tooling</div><a href="book__09-cli-native-runtime.html">9. The Alef CLI And Native Runtime</a><a href="book__13-testing.html">13. Testing Alef Programs</a><a href="docs__runtime__cli.html">Command Reference</a><a href="docs__runtime__native-runtime.html">Native Runtime</a><a href="docs__runtime__testing.html">Testing</a><a href="docs__runtime__bytecode-jit.html">Bytecode And JIT</a><a href="docs__using__editor-tools.html">Editor Tools</a><a href="docs__using__diagnostics.html">Diagnostics</a><div class="nav-label">Standard Library</div><a href="book__10-http-json.html">10. HTTP And JSON</a><a href="book__11-database-cache-state.html">11. Database, Cache, And State</a><a href="book__12-ai-standard-library.html">12. AI As Standard Library</a><a href="docs__stdlib__overview.html">Standard Library Overview</a><a href="docs__stdlib__http-json.html">HTTP And JSON Reference</a><a href="docs__stdlib__db-cache.html">Database And Cache Reference</a><a href="docs__stdlib__ai.html">AI Reference</a><div class="nav-label">Tutorials And Code Walkthroughs</div><a href="book__14-building-a-native-api.html">14. Building A Native API</a><a href="book__15-building-ticketdesk-ui.html">15. Building TicketDesk UI</a><a href="book__16-building-ai-ticket-router.html">16. Building An AI Ticket Router</a><a href="docs__tutorials__native-api.html">Native API Tutorial</a><a href="docs__tutorials__ticketdesk-ui.html">TicketDesk UI Tutorial</a><a href="docs__tutorials__ai-workflow.html">AI Workflow Tutorial</a><a href="docs__codewalks__ticketdesk-ui.html">TicketDesk Code Walk</a><a href="docs__codewalks__agent-ticket-router.html">Agent Ticket Router Code Walk</a><div class="nav-label">Cookbook</div><a href="docs__cookbook__json-apis.html">JSON APIs</a><a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a><a href="docs__cookbook__server-rendered-ui.html">Server-Rendered UI</a><a href="docs__database__accessing-databases.html">Accessing Databases</a><a href="docs__database__database-smoke-tests.html">Database Smoke Tests</a><div class="nav-label">Modules And Packages</div><a href="docs__modules__developing-modules.html">Developing Modules</a><a href="docs__modules__publishing-examples.html">Publishing Examples</a><a href="docs__reference__alef-mod.html">alef.mod Reference</a><div class="nav-label">Using Alef Well</div><a href="docs__what-is-alef.html">What Is Alef</a><a href="docs__using__effective-alef.html">Effective Alef</a><a href="docs__using__faq.html">FAQ</a><div class="nav-label">Reference</div><a href="docs__reference__language-specification.html">Language Specification</a><a href="docs__reference__syntax.html">Syntax Reference</a><a href="docs__reference__examples.html">Examples Reference</a><a href="docs__reference__release-notes.html">Release Notes</a><a href="docs__reference__gitbook-publishing.html">GitBook Publishing</a><a href="docs__reference__dedication.html">Dedication</a></nav>
+  </aside>
+  <main class="content">
+    <h1 id="alef-language-specification">Alef Language Specification</h1>
+<p>This is the public specification for Alef source programs. It
+describes the language contract a user can rely on when writing
+<code>.alef</code> files. It is not a description of the private
+compiler or native runtime implementation.</p>
+<p>The specification is intentionally stricter than the tutorial pages.
+Tutorials teach the path. This document defines the surface.</p>
+<h2 id="source-files">Source Files</h2>
+<p>Alef source files use the <code>.alef</code> extension.</p>
+<p>A source file contains zero or more imports and declarations.
+Executable programs normally define <code>main</code>.</p>
+<pre class="alef"><code>import std.http { json_response }
+
+fn main() {
+    println(&quot;hello&quot;)
+}</code></pre>
+<h2 id="notation">Notation</h2>
+<p>Examples in this document use ordinary Alef source. Grammar fragments
+are written informally until the language grammar is published as a
+machine-readable artifact.</p>
+<p>Names in <code>code</code> are literal tokens or language
+constructs.</p>
+<h2 id="lexical-elements">Lexical Elements</h2>
+<p>Alef programs are written as Unicode text.</p>
+<p>Whitespace separates tokens and is otherwise insignificant outside
+strings. Newlines are accepted between statements and declarations.
+Semicolons are not required in the beginner-facing style used by this
+book.</p>
+<h3 id="comments">Comments</h3>
+<p>Line comments begin with <code>//</code> and continue to the end of
+the line.</p>
+<pre class="alef"><code>// This is a comment.
+println(&quot;ready&quot;)</code></pre>
+<h3 id="identifiers">Identifiers</h3>
+<p>Identifiers name values, functions, parameters, struct fields, enum
+variants, and imported bindings.</p>
+<pre class="alef"><code>let ticket_id = &quot;TD-101&quot;
+fn priority(plan, blocked) { ... }</code></pre>
+<p>Public examples should prefer readable names over abbreviations.</p>
+<h3 id="keywords">Keywords</h3>
+<p>The core keywords used in this book are:</p>
+<pre class="text"><code>fn let return if else for in while match struct enum import true false none
+and or not</code></pre>
+<p>Standard-library names such as <code>std.http</code> are not
+keywords.</p>
+<h3 id="literals">Literals</h3>
+<p>Alef supports:</p>
+<ul>
+<li>string literals: <code>"hello"</code></li>
+<li>integer literals: <code>42</code></li>
+<li>floating-point literals: <code>3.14</code></li>
+<li>booleans: <code>true</code>, <code>false</code></li>
+<li>none/null-like value: <code>none</code></li>
+<li>arrays: <code>[1, 2, 3]</code></li>
+<li>maps: <code>{ "id" =&gt; "TD-101" }</code></li>
+</ul>
+<h2 id="strings">Strings</h2>
+<p>Strings use double quotes.</p>
+<pre class="alef"><code>let name = &quot;Ada&quot;</code></pre>
+<p>String interpolation inserts values with braces.</p>
+<pre class="alef"><code>println(&quot;hello, {name}&quot;)</code></pre>
+<p>For complex expressions, bind a value first and interpolate the
+name.</p>
+<pre class="alef"><code>let id = ticket[&quot;id&quot;]
+println(&quot;{id}: ready&quot;)</code></pre>
+<h2 id="declarations">Declarations</h2>
+<h3 id="function-declarations">Function Declarations</h3>
+<p>Functions are declared with <code>fn</code>.</p>
+<pre class="alef"><code>fn add(a, b) {
+    return a + b
+}</code></pre>
+<p>Typed signatures may be used when the program benefits from explicit
+contracts.</p>
+<pre class="alef"><code>fn label(id: string, title: string) -&gt; string {
+    return &quot;{id}: {title}&quot;
+}</code></pre>
+<p>The conventional executable entrypoint is:</p>
+<pre class="alef"><code>fn main() {
+    println(&quot;hello&quot;)
+}</code></pre>
+<h3 id="decorator-declarations">Decorator Declarations</h3>
+<p>Decorators attach supported metadata to the following function
+declaration.</p>
+<pre class="alef"><code>@deprecated(&quot;use new_priority instead&quot;)
+fn old_priority(plan, blocked) {
+    if plan == &quot;enterprise&quot; and blocked {
+        return &quot;P0&quot;
+    }
+    return &quot;P2&quot;
+}</code></pre>
+<p>Documented decorators are:</p>
+<ul>
+<li><code>@test</code></li>
+<li><code>@bench</code></li>
+<li><code>@deprecated</code></li>
+<li><code>@inline</code></li>
+<li><code>@noinline</code></li>
+</ul>
+<p>Decorators are declaration metadata. Alef does not specify arbitrary
+aspect weaving or hidden function-body rewriting as part of the public
+contract.</p>
+<h3 id="struct-declarations">Struct Declarations</h3>
+<p>A struct declares a named record shape.</p>
+<pre class="alef"><code>struct Ticket {
+    id: string,
+    title: string,
+    blocked: bool
+}</code></pre>
+<p>Construct a struct with named fields.</p>
+<pre class="alef"><code>let ticket = Ticket {
+    id: &quot;TD-101&quot;,
+    title: &quot;Checkout timeout&quot;,
+    blocked: true
+}</code></pre>
+<p>Read a field with dot access.</p>
+<pre class="alef"><code>println(ticket.title)</code></pre>
+<h3 id="enum-declarations">Enum Declarations</h3>
+<p>An enum declares a finite set of cases.</p>
+<pre class="alef"><code>enum Status {
+    Triage,
+    Progress,
+    Done,
+}</code></pre>
+<p>Enum variants may carry values.</p>
+<pre class="alef"><code>enum Shape {
+    Circle(f64),
+    Rect(f64, f64),
+    Point,
+}</code></pre>
+<h2 id="statements">Statements</h2>
+<h3 id="let-statements">Let Statements</h3>
+<p><code>let</code> binds a local value.</p>
+<pre class="alef"><code>let status = &quot;triage&quot;</code></pre>
+<p>Bindings may be reassigned when a program is modeling a state
+transition.</p>
+<pre class="alef"><code>status = &quot;progress&quot;</code></pre>
+<h3 id="return-statements">Return Statements</h3>
+<p><code>return</code> exits the current function.</p>
+<pre class="alef"><code>fn owner(priority) {
+    if priority == &quot;P0&quot; {
+        return &quot;incident-lead&quot;
+    }
+    return &quot;support&quot;
+}</code></pre>
+<h3 id="if-statements">If Statements</h3>
+<p><code>if</code> selects a branch based on a boolean condition.</p>
+<pre class="alef"><code>if blocked {
+    return &quot;P0&quot;
+}
+return &quot;P2&quot;</code></pre>
+<p><code>else</code> may be used when both branches are useful.</p>
+<pre class="alef"><code>if blocked {
+    println(&quot;needs attention&quot;)
+} else {
+    println(&quot;moving&quot;)
+}</code></pre>
+<h3 id="for-statements">For Statements</h3>
+<p><code>for</code> iterates over iterable values such as arrays.</p>
+<pre class="alef"><code>for ticket in tickets {
+    println(ticket[&quot;id&quot;])
+}</code></pre>
+<h3 id="while-statements">While Statements</h3>
+<p><code>while</code> repeats while its condition is true.</p>
+<pre class="alef"><code>while retries &lt; 3 {
+    retries = retries + 1
+}</code></pre>
+<h3 id="match-statements">Match Statements</h3>
+<p><code>match</code> selects a branch by value shape.</p>
+<pre class="alef"><code>match result {
+    Ok(value) =&gt; println(value),
+    Err(error) =&gt; println(&quot;failed: {error}&quot;),
+}</code></pre>
+<p><code>match</code> is the preferred way to handle
+<code>Result</code>, <code>Option</code>, and enums in public
+examples.</p>
+<h2 id="expressions">Expressions</h2>
+<p>Expressions produce values.</p>
+<h3 id="calls">Calls</h3>
+<pre class="alef"><code>println(&quot;hello&quot;)
+priority(&quot;enterprise&quot;, true)</code></pre>
+<h3 id="operators">Operators</h3>
+<p>Arithmetic:</p>
+<pre class="alef"><code>let total = subtotal + tax
+let next = count + 1</code></pre>
+<p>Comparison:</p>
+<pre class="alef"><code>let ok = priority == &quot;P0&quot;
+let retry = attempts &lt; 3</code></pre>
+<p>Boolean logic:</p>
+<pre class="alef"><code>let urgent = blocked and plan == &quot;enterprise&quot;
+let visible = not hidden</code></pre>
+<p>Boolean operators use words: <code>and</code>, <code>or</code>, and
+<code>not</code>.</p>
+<h3 id="arrays">Arrays</h3>
+<pre class="alef"><code>let statuses = [&quot;triage&quot;, &quot;progress&quot;, &quot;done&quot;]
+println(statuses[0])</code></pre>
+<p>Arrays preserve order and can be traversed with <code>for</code>.</p>
+<h3 id="maps">Maps</h3>
+<p>Maps use <code>=&gt;</code> for key/value pairs.</p>
+<pre class="alef"><code>let ticket = {
+    &quot;id&quot; =&gt; &quot;TD-101&quot;,
+    &quot;blocked&quot; =&gt; true
+}</code></pre>
+<p>Map values are read with bracket access.</p>
+<pre class="alef"><code>println(ticket[&quot;id&quot;])</code></pre>
+<p>Maps are the natural shape for JSON-like data and beginner
+examples.</p>
+<h2 id="types">Types</h2>
+<p>The public type names used in this book include:</p>
+<pre class="text"><code>string int f64 bool</code></pre>
+<p>Collection and algebraic shapes include:</p>
+<pre class="text"><code>[T]
+Result&lt;T, E&gt;
+Option&lt;T&gt;</code></pre>
+<p>Struct and enum declarations introduce named types.</p>
+<h2 id="result">Result</h2>
+<p><code>Result&lt;T, E&gt;</code> represents success or failure.</p>
+<pre class="alef"><code>enum Result&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+}</code></pre>
+<p>Use <code>Result</code> when an operation can fail.</p>
+<pre class="alef"><code>fn divide(a: f64, b: f64) -&gt; Result&lt;f64, string&gt; {
+    if b == 0.0 {
+        return Err(&quot;division by zero&quot;)
+    }
+    return Ok(a / b)
+}</code></pre>
+<p>The <code>?</code> operator unwraps <code>Ok(value)</code> and
+returns early on <code>Err(error)</code>.</p>
+<pre class="alef"><code>fn half_twice(n: f64) -&gt; Result&lt;f64, string&gt; {
+    let x = divide(n, 2.0)?
+    let y = divide(x, 2.0)?
+    return Ok(y)
+}</code></pre>
+<h2 id="option">Option</h2>
+<p><code>Option&lt;T&gt;</code> represents a value that may be present
+or absent.</p>
+<pre class="alef"><code>enum Option&lt;T&gt; {
+    Some(T),
+    None,
+}</code></pre>
+<p>Use <code>Option</code> when missing data is expected.</p>
+<h2 id="imports-and-modules">Imports And Modules</h2>
+<p>Imports bring names into scope.</p>
+<pre class="alef"><code>import std.http { json_response }</code></pre>
+<p>Standard-library modules are part of the public language surface. The
+private compiler and runtime source are not required to use them.</p>
+<h2 id="composition-and-inversion-of-control">Composition And Inversion
+Of Control</h2>
+<p>Alef programs can use inversion of control through runtime boundaries
+such as the HTTP app, route handlers, middleware, state, tests, and
+benchmark runners.</p>
+<p>The public language contract favors explicit composition over hidden
+auto-wiring:</p>
+<pre class="alef"><code>fn make_service(clock) {
+    return { &quot;clock&quot; =&gt; clock }
+}
+
+fn main() {
+    let service = make_service(&quot;2026-06-28T10:00:00Z&quot;)
+    println(service[&quot;clock&quot;])
+}</code></pre>
+<p>There is no documented built-in dependency injection container. Pass
+dependencies through parameters, app state, and small composition
+functions.</p>
+<h2 id="program-execution">Program Execution</h2>
+<p>Run a file with:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">alef</span> run main.alef</span></code></pre></div>
+<p>The shorter form also runs a file:</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">alef</span> main.alef</span></code></pre></div>
+<p>This documentation prefers the explicit <code>run</code> form.</p>
+<h2 id="complete-example">Complete Example</h2>
+<pre class="alef"><code>fn priority(plan, blocked) {
+    if plan == &quot;enterprise&quot; and blocked {
+        return &quot;P0&quot;
+    }
+    return &quot;P2&quot;
+}
+
+fn main() {
+    let ticket = {
+        &quot;id&quot; =&gt; &quot;TD-101&quot;,
+        &quot;plan&quot; =&gt; &quot;enterprise&quot;,
+        &quot;blocked&quot; =&gt; true
+    }
+
+    let p = priority(ticket[&quot;plan&quot;], ticket[&quot;blocked&quot;])
+    let id = ticket[&quot;id&quot;]
+    println(&quot;{id}: {p}&quot;)
+}</code></pre>
+<p>Expected output:</p>
+<pre class="text"><code>TD-101: P0</code></pre>
+<h2 id="stability">Stability</h2>
+<p>This specification defines the documented public contract for the
+current release candidate. If implementation behavior differs from this
+page, treat the mismatch as a documentation or runtime bug to be
+fixed.</p>
+  </main>
+</body>
+</html>

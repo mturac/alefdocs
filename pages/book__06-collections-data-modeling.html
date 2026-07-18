@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>6. Collections And Data Modeling · Alef</title>
+  <link rel="icon" href="../assets/alef-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="../index.html"><img src="../assets/alef-logo.svg" alt="Alef"><span>Alef</span></a>
+    <nav><div class="nav-label">Start Here</div><a href="book__01-why-alef-is-a-language.html">1. Learning Alef From Zero</a><a href="book__02-installing-and-running.html">2. Installing And Running Alef</a><a href="book__03-your-first-program.html">3. Your First Alef Program</a><a href="docs__getting-started__quickstart.html">Quickstart</a><a href="docs__getting-started__project-structure.html">Project Structure</a><div class="nav-label">Language Guide</div><a href="book__04-values-bindings-functions.html">4. Syntax Fundamentals</a><a href="book__05-control-flow.html">5. Control Flow</a><a href="book__06-collections-data-modeling.html">6. Collections And Data Modeling</a><a href="book__07-results-options-errors.html">7. Results, Options, And Errors</a><a href="book__08-modules-project-structure.html">8. Modules And Project Structure</a><a href="docs__language__tour.html">Language Tour</a><a href="docs__language__variables.html">Variables</a><a href="docs__language__strings.html">Strings</a><a href="docs__language__functions.html">Functions</a><a href="docs__language__control-flow.html">Control Flow Guide</a><a href="docs__language__collections.html">Collections</a><a href="docs__language__structs-enums.html">Structs And Enums</a><a href="docs__language__results-errors.html">Results And Errors</a><a href="docs__language__modules.html">Modules</a><a href="docs__language__composition-ioc-di-aop.html">Composition, IoC, DI, And AOP</a><div class="nav-label">Runtime And Tooling</div><a href="book__09-cli-native-runtime.html">9. The Alef CLI And Native Runtime</a><a href="book__13-testing.html">13. Testing Alef Programs</a><a href="docs__runtime__cli.html">Command Reference</a><a href="docs__runtime__native-runtime.html">Native Runtime</a><a href="docs__runtime__testing.html">Testing</a><a href="docs__runtime__bytecode-jit.html">Bytecode And JIT</a><a href="docs__using__editor-tools.html">Editor Tools</a><a href="docs__using__diagnostics.html">Diagnostics</a><div class="nav-label">Standard Library</div><a href="book__10-http-json.html">10. HTTP And JSON</a><a href="book__11-database-cache-state.html">11. Database, Cache, And State</a><a href="book__12-ai-standard-library.html">12. AI As Standard Library</a><a href="docs__stdlib__overview.html">Standard Library Overview</a><a href="docs__stdlib__http-json.html">HTTP And JSON Reference</a><a href="docs__stdlib__db-cache.html">Database And Cache Reference</a><a href="docs__stdlib__ai.html">AI Reference</a><div class="nav-label">Tutorials And Code Walkthroughs</div><a href="book__14-building-a-native-api.html">14. Building A Native API</a><a href="book__15-building-ticketdesk-ui.html">15. Building TicketDesk UI</a><a href="book__16-building-ai-ticket-router.html">16. Building An AI Ticket Router</a><a href="docs__tutorials__native-api.html">Native API Tutorial</a><a href="docs__tutorials__ticketdesk-ui.html">TicketDesk UI Tutorial</a><a href="docs__tutorials__ai-workflow.html">AI Workflow Tutorial</a><a href="docs__codewalks__ticketdesk-ui.html">TicketDesk Code Walk</a><a href="docs__codewalks__agent-ticket-router.html">Agent Ticket Router Code Walk</a><div class="nav-label">Cookbook</div><a href="docs__cookbook__json-apis.html">JSON APIs</a><a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a><a href="docs__cookbook__server-rendered-ui.html">Server-Rendered UI</a><a href="docs__database__accessing-databases.html">Accessing Databases</a><a href="docs__database__database-smoke-tests.html">Database Smoke Tests</a><div class="nav-label">Modules And Packages</div><a href="docs__modules__developing-modules.html">Developing Modules</a><a href="docs__modules__publishing-examples.html">Publishing Examples</a><a href="docs__reference__alef-mod.html">alef.mod Reference</a><div class="nav-label">Using Alef Well</div><a href="docs__what-is-alef.html">What Is Alef</a><a href="docs__using__effective-alef.html">Effective Alef</a><a href="docs__using__faq.html">FAQ</a><div class="nav-label">Reference</div><a href="docs__reference__language-specification.html">Language Specification</a><a href="docs__reference__syntax.html">Syntax Reference</a><a href="docs__reference__examples.html">Examples Reference</a><a href="docs__reference__release-notes.html">Release Notes</a><a href="docs__reference__gitbook-publishing.html">GitBook Publishing</a><a href="docs__reference__dedication.html">Dedication</a></nav>
+  </aside>
+  <main class="content">
+    <h1>6. Collections And Data Modeling</h1>
+<p>Programs need to hold more than one value. Alef gives beginners two simple tools first:</p>
+<ul>
+<li>arrays for ordered lists</li>
+<li>maps for key/value data</li>
+</ul>
+<p>When a shape deserves a name, use structs and enums.</p>
+<h2>Arrays</h2>
+<p>An array stores values in order.</p>
+<pre><code class="language-alef">
+fn main() {
+    let statuses = [&quot;triage&quot;, &quot;progress&quot;, &quot;review&quot;, &quot;done&quot;]
+    println(statuses[0])
+}
+</code></pre>
+<div class="doc-example-step"><span class="doc-example-label">Output</span>
+<pre><code class="language-text">
+triage
+</code></pre></div>
+<p>Add an item with <code>push</code>:</p>
+<pre><code class="language-alef">
+fn main() {
+    let statuses = [&quot;triage&quot;, &quot;progress&quot;]
+    statuses.push(&quot;done&quot;)
+
+    for status in statuses {
+        println(status)
+    }
+}
+</code></pre>
+<h2>Maps</h2>
+<p>A map stores values by key. This is useful for JSON-like data.</p>
+<pre><code class="language-alef">
+fn main() {
+    let ticket = {
+        &quot;id&quot; =&gt; &quot;TD-101&quot;,
+        &quot;title&quot; =&gt; &quot;Checkout timeout&quot;,
+        &quot;priority&quot; =&gt; &quot;P0&quot;
+    }
+
+    println(ticket[&quot;title&quot;])
+}
+</code></pre>
+<div class="doc-example-step"><span class="doc-example-label">Output</span>
+<pre><code class="language-text">
+Checkout timeout
+</code></pre></div>
+<p>Use maps when:</p>
+<ul>
+<li>data comes from JSON</li>
+<li>an example should be easy to inspect</li>
+<li>keys are dynamic</li>
+</ul>
+<h2>Structs</h2>
+<p>Use a struct when a shape deserves a name.</p>
+<pre><code class="language-alef">
+struct Task {
+    id: string,
+    title: string,
+    done: bool
+}
+
+fn main() {
+    let task = Task {
+        id: &quot;task_1&quot;,
+        title: &quot;Write docs&quot;,
+        done: false
+    }
+
+    println(task.title)
+}
+</code></pre>
+<p>Structs make a program easier to read when the same shape appears many times.</p>
+<h2>Enums</h2>
+<p>Use an enum when the valid cases are finite.</p>
+<pre><code class="language-alef">
+enum Status {
+    Triage,
+    Progress,
+    Done,
+}
+</code></pre>
+<p>Enums are useful for states because they prevent vague strings from spreading through a program.</p>
+<h2>Choosing The Right Shape</h2>
+<p>Use this rule of thumb:</p>
+<ul>
+<li>array: many values in order</li>
+<li>map: flexible key/value data</li>
+<li>struct: named fields with a stable shape</li>
+<li>enum: one value from a known set of cases</li>
+</ul>
+<h2>Exercise</h2>
+<p>Create a map named <code>customer</code> with:</p>
+<ul>
+<li><code>name</code></li>
+<li><code>plan</code></li>
+<li><code>blocked</code></li>
+</ul>
+<p>Write a function that returns <code>&quot;review&quot;</code> when the customer is blocked and <code>&quot;ok&quot;</code> otherwise.</p>
+  </main>
+</body>
+</html>

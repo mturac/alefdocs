@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Composition, IoC, DI, And AOP · Alef</title>
+  <link rel="icon" href="../assets/alef-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="../index.html"><img src="../assets/alef-logo.svg" alt="Alef"><span>Alef</span></a>
+    <nav><div class="nav-label">Start Here</div><a href="book__01-why-alef-is-a-language.html">1. Learning Alef From Zero</a><a href="book__02-installing-and-running.html">2. Installing And Running Alef</a><a href="book__03-your-first-program.html">3. Your First Alef Program</a><a href="docs__getting-started__quickstart.html">Quickstart</a><a href="docs__getting-started__project-structure.html">Project Structure</a><div class="nav-label">Language Guide</div><a href="book__04-values-bindings-functions.html">4. Syntax Fundamentals</a><a href="book__05-control-flow.html">5. Control Flow</a><a href="book__06-collections-data-modeling.html">6. Collections And Data Modeling</a><a href="book__07-results-options-errors.html">7. Results, Options, And Errors</a><a href="book__08-modules-project-structure.html">8. Modules And Project Structure</a><a href="docs__language__tour.html">Language Tour</a><a href="docs__language__variables.html">Variables</a><a href="docs__language__strings.html">Strings</a><a href="docs__language__functions.html">Functions</a><a href="docs__language__control-flow.html">Control Flow Guide</a><a href="docs__language__collections.html">Collections</a><a href="docs__language__structs-enums.html">Structs And Enums</a><a href="docs__language__results-errors.html">Results And Errors</a><a href="docs__language__modules.html">Modules</a><a href="docs__language__composition-ioc-di-aop.html">Composition, IoC, DI, And AOP</a><div class="nav-label">Runtime And Tooling</div><a href="book__09-cli-native-runtime.html">9. The Alef CLI And Native Runtime</a><a href="book__13-testing.html">13. Testing Alef Programs</a><a href="docs__runtime__cli.html">Command Reference</a><a href="docs__runtime__native-runtime.html">Native Runtime</a><a href="docs__runtime__testing.html">Testing</a><a href="docs__runtime__bytecode-jit.html">Bytecode And JIT</a><a href="docs__using__editor-tools.html">Editor Tools</a><a href="docs__using__diagnostics.html">Diagnostics</a><div class="nav-label">Standard Library</div><a href="book__10-http-json.html">10. HTTP And JSON</a><a href="book__11-database-cache-state.html">11. Database, Cache, And State</a><a href="book__12-ai-standard-library.html">12. AI As Standard Library</a><a href="docs__stdlib__overview.html">Standard Library Overview</a><a href="docs__stdlib__http-json.html">HTTP And JSON Reference</a><a href="docs__stdlib__db-cache.html">Database And Cache Reference</a><a href="docs__stdlib__ai.html">AI Reference</a><div class="nav-label">Tutorials And Code Walkthroughs</div><a href="book__14-building-a-native-api.html">14. Building A Native API</a><a href="book__15-building-ticketdesk-ui.html">15. Building TicketDesk UI</a><a href="book__16-building-ai-ticket-router.html">16. Building An AI Ticket Router</a><a href="docs__tutorials__native-api.html">Native API Tutorial</a><a href="docs__tutorials__ticketdesk-ui.html">TicketDesk UI Tutorial</a><a href="docs__tutorials__ai-workflow.html">AI Workflow Tutorial</a><a href="docs__codewalks__ticketdesk-ui.html">TicketDesk Code Walk</a><a href="docs__codewalks__agent-ticket-router.html">Agent Ticket Router Code Walk</a><div class="nav-label">Cookbook</div><a href="docs__cookbook__json-apis.html">JSON APIs</a><a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a><a href="docs__cookbook__server-rendered-ui.html">Server-Rendered UI</a><a href="docs__database__accessing-databases.html">Accessing Databases</a><a href="docs__database__database-smoke-tests.html">Database Smoke Tests</a><div class="nav-label">Modules And Packages</div><a href="docs__modules__developing-modules.html">Developing Modules</a><a href="docs__modules__publishing-examples.html">Publishing Examples</a><a href="docs__reference__alef-mod.html">alef.mod Reference</a><div class="nav-label">Using Alef Well</div><a href="docs__what-is-alef.html">What Is Alef</a><a href="docs__using__effective-alef.html">Effective Alef</a><a href="docs__using__faq.html">FAQ</a><div class="nav-label">Reference</div><a href="docs__reference__language-specification.html">Language Specification</a><a href="docs__reference__syntax.html">Syntax Reference</a><a href="docs__reference__examples.html">Examples Reference</a><a href="docs__reference__release-notes.html">Release Notes</a><a href="docs__reference__gitbook-publishing.html">GitBook Publishing</a><a href="docs__reference__dedication.html">Dedication</a></nav>
+  </aside>
+  <main class="content">
+    <h1 id="composition-ioc-di-and-aop">Composition, IoC, DI, And AOP</h1>
+<p>Alef supports the useful parts of inversion of control without hiding
+the program behind a large framework.</p>
+<p>The Alef style is:</p>
+<ul>
+<li>build dependencies in one visible place</li>
+<li>pass dependencies explicitly</li>
+<li>keep request state in <code>std.http.with_state</code></li>
+<li>use middleware for request-wide behavior</li>
+<li>use decorators for supported declaration metadata</li>
+</ul>
+<p>Alef does not currently document a Spring-style dependency injection
+container, automatic class scanning, or a full aspect weaver. The point
+is to keep services small enough that the composition remains
+readable.</p>
+<h2 id="alef-style-ioc">Alef-Style IoC</h2>
+<p>Inversion of control means your program describes handlers and
+boundaries, then the runtime calls those handlers at the right time.</p>
+<p>For HTTP programs, the app owns routes and middleware. The runtime
+owns the request loop.</p>
+<pre class="alef"><code>fn with_state(response, state) {
+    return { &quot;response&quot; =&gt; response, &quot;state&quot; =&gt; state }
+}
+
+fn health(request, state) {
+    return with_state(std.http.json_response(json_encode({
+        &quot;ok&quot; =&gt; true
+    })), state)
+}
+
+fn build_app(deps) {
+    let app = std.http.with_state(std.http.app(), deps)
+    return std.http.route(app, &quot;GET&quot;, &quot;/health&quot;, health)
+}
+
+fn main() {
+    let deps = { &quot;service&quot; =&gt; &quot;ticketdesk&quot; }
+    std.http.listen_options(&quot;127.0.0.1:8090&quot;, build_app(deps), {
+        &quot;shutdown_path&quot; =&gt; &quot;/__shutdown&quot;
+    })
+}</code></pre>
+<p>The inversion is real: <code>main</code> wires the app, but
+<code>std.http</code> calls <code>health</code>. The dependency graph is
+still visible in source.</p>
+<h2 id="dependency-injection">Dependency Injection</h2>
+<p>Prefer explicit dependency injection through parameters and state
+maps.</p>
+<pre class="alef"><code>fn make_ticket_service(clock, id_prefix) {
+    return {
+        &quot;clock&quot; =&gt; clock,
+        &quot;id_prefix&quot; =&gt; id_prefix
+    }
+}
+
+fn create_ticket(service, title) {
+    let prefix = service[&quot;id_prefix&quot;]
+    let clock = service[&quot;clock&quot;]
+    return {
+        &quot;id&quot; =&gt; &quot;{prefix}-101&quot;,
+        &quot;title&quot; =&gt; title,
+        &quot;created_at&quot; =&gt; clock
+    }
+}
+
+fn main() {
+    let service = make_ticket_service(&quot;2026-06-28T10:00:00Z&quot;, &quot;TD&quot;)
+    let ticket = create_ticket(service, &quot;Checkout timeout&quot;)
+    println(ticket[&quot;id&quot;])
+}</code></pre>
+<p>Run it:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">alef</span> run main.alef</span></code></pre></div>
+<p>Expected output:</p>
+<pre class="text"><code>TD-101</code></pre>
+<p>This gives you testable code without hidden global state. In tests or
+smoke programs, pass a deterministic clock, a fake provider, or an
+in-memory store.</p>
+<h2 id="middleware-as-cross-cutting-behavior">Middleware As
+Cross-Cutting Behavior</h2>
+<p>Middleware is the Alef-native place for request-wide behavior such as
+authentication, request context, audit metadata, or rate limits.</p>
+<pre class="alef"><code>fn request_context(request, state) {
+    let next_request = {
+        &quot;method&quot; =&gt; request[&quot;method&quot;],
+        &quot;path&quot; =&gt; request[&quot;path&quot;],
+        &quot;query&quot; =&gt; request[&quot;query&quot;],
+        &quot;headers&quot; =&gt; request[&quot;headers&quot;],
+        &quot;params&quot; =&gt; request[&quot;params&quot;],
+        &quot;body&quot; =&gt; request[&quot;body&quot;],
+        &quot;request_id&quot; =&gt; &quot;req-001&quot;
+    }
+    return { &quot;request&quot; =&gt; next_request, &quot;state&quot; =&gt; state }
+}
+
+fn build_app(state) {
+    let app = std.http.with_state(std.http.app(), state)
+    let app = std.http.middleware(app, request_context)
+    return app
+}</code></pre>
+<p>That is the Alef answer to most AOP use cases: put the cross-cutting
+behavior at the boundary where it is observable and testable.</p>
+<h2 id="decorators">Decorators</h2>
+<p>Alef has declaration decorators for supported function metadata and
+runners.</p>
+<pre class="alef"><code>@deprecated(&quot;use new_priority instead&quot;)
+fn old_priority(plan, blocked) {
+    if plan == &quot;enterprise&quot; and blocked {
+        return &quot;P0&quot;
+    }
+    return &quot;P2&quot;
+}
+
+@inline
+fn add(a: int, b: int) -&gt; int {
+    return a + b
+}
+
+fn main() {
+    println(old_priority(&quot;enterprise&quot;, true))
+    println(add(1, 2))
+}</code></pre>
+<p>Documented decorators are:</p>
+<ul>
+<li><code>@test</code> for test discovery</li>
+<li><code>@bench</code> for benchmark discovery</li>
+<li><code>@deprecated</code> for deprecation metadata</li>
+<li><code>@inline</code> and <code>@noinline</code> for optimization
+hints</li>
+</ul>
+<p>Decorators are not a license to hide business logic. Use them for
+metadata and runner integration; use middleware and explicit functions
+for behavior.</p>
+<h2 id="practical-rule">Practical Rule</h2>
+<p>If you are deciding between a container and plain Alef composition,
+start with plain Alef composition:</p>
+<ol type="1">
+<li><code>main</code> builds dependencies.</li>
+<li><code>build_app</code> wires runtime boundaries.</li>
+<li>handlers accept <code>request</code> and <code>state</code>.</li>
+<li>middleware handles cross-cutting request behavior.</li>
+<li>tests replace dependencies by passing different values.</li>
+</ol>
+<p>That gives Alef an IoC story without making the language feel like a
+framework you have to fight.</p>
+  </main>
+</body>
+</html>

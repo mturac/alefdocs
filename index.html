@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Alef Programming Language</title>
+  <link rel="icon" href="assets/alef-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="home">
+  <main class="home-shell">
+    <section class="hero hero-docs">
+      <img class="hero-logo" src="assets/alef-logo.svg" alt="Alef logo">
+      <p class="subtle">A closed-source language with public docs and binaries</p>
+      <h1>The Alef Programming Language</h1>
+      <p class="lead">Learn Alef from zero: install the command, write one file, run it, then grow into syntax, data, errors, runtime, and real programs.</p>
+      <div class="actions">
+        <a href="pages/book__01-why-alef-is-a-language.html">Start learning</a>
+        <a href="pages/docs__reference__language-specification.html">Language specification</a>
+        <a href="https://github.com/mturac/aleflang-docs/releases/latest/download/alef-darwin-arm64">Download macOS arm64</a>
+      </div>
+    </section>
+
+    <section class="quickstart-band" aria-label="Quickstart">
+      <div>
+        <p class="eyebrow">Quickstart</p>
+        <h2>One file. One command.</h2>
+        <p>Alef programs are plain `.alef` files. The native runtime starts at `main` and prints directly to your terminal.</p>
+      </div>
+      <div class="terminal-card" aria-label="Quickstart command">
+        <div class="terminal-title"><span></span><strong>Terminal</strong></div>
+        <pre><code>alef run main.alef</code></pre>
+      </div>
+    </section>
+
+    <section class="learning-path" aria-label="Learning path">
+      <div class="section-heading">
+        <p class="eyebrow">Beginner path</p>
+        <h2>Learn the language in the order you need it.</h2>
+      </div>
+      <div class="step-grid">
+        <a class="step-card" href="pages/book__02-installing-and-running.html">
+          <span>01</span>
+          <h3>Install</h3>
+          <p>Download the public binary and verify `alef --version`.</p>
+        </a>
+        <a class="step-card" href="pages/book__03-your-first-program.html">
+          <span>02</span>
+          <h3>Write</h3>
+          <p>Create `main.alef`, add `fn main`, bind values, and print output.</p>
+        </a>
+        <a class="step-card" href="pages/docs__reference__language-specification.html">
+          <span>03</span>
+          <h3>Specify</h3>
+          <p>Use the language spec when you need the public contract, not a tutorial.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="example-lab" aria-label="Runnable example">
+      <div class="section-heading">
+        <p class="eyebrow">Runnable example</p>
+        <h2>A small program that already looks like work.</h2>
+      </div>
+      <div class="lab-grid">
+        <div class="code-panel">
+          <div class="panel-bar"><strong>main.alef</strong><span>source</span></div>
+          <pre><code>fn priority(plan, blocked) {
+    if plan == "enterprise" and blocked {
+        return "P0"
+    }
+    return "P2"
+}
+
+fn main() {
+    let ticket = {
+        "id" => "TD-101",
+        "plan" => "enterprise",
+        "blocked" => true
+    }
+
+    let p = priority(ticket["plan"], ticket["blocked"])
+    let id = ticket["id"]
+    println("{id}: {p}")
+}</code></pre>
+        </div>
+        <div class="run-panel">
+          <div class="terminal-card compact">
+            <div class="terminal-title"><span></span><strong>Run</strong></div>
+            <pre><code>alef run main.alef</code></pre>
+          </div>
+          <div class="terminal-card compact output">
+            <div class="terminal-title"><span></span><strong>Output</strong></div>
+            <pre><code>TD-101: P0</code></pre>
+          </div>
+          <a class="text-link" href="pages/book__03-your-first-program.html">Walk through this program</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec-band" aria-label="Language specification">
+      <div>
+        <p class="eyebrow">Reference</p>
+        <h2>There is now a real language spec.</h2>
+        <p>The syntax reference is quick lookup. The language specification is the public contract for `.alef` files: source files, lexical elements, declarations, statements, expressions, types, `Result`, `Option`, imports, and execution.</p>
+      </div>
+      <a class="spec-card" href="pages/docs__reference__language-specification.html">
+        <span>A</span>
+        <strong>Language Specification</strong>
+        <small>For implementers, advanced users, and exact behavior.</small>
+      </a>
+    </section>
+
+    <section class="learn-grid-section" aria-label="What you learn">
+      <div class="section-heading">
+        <p class="eyebrow">Core language</p>
+        <h2>What you learn first</h2>
+      </div>
+      <div class="learn-grid">
+        <div><strong>Functions</strong><p>`fn`, parameters, return values, typed signatures.</p></div>
+        <div><strong>Values</strong><p>`let`, strings, numbers, booleans, arrays, maps.</p></div>
+        <div><strong>Control flow</strong><p>`if`, `for`, `while`, and `match`.</p></div>
+        <div><strong>Data modeling</strong><p>Maps for JSON-like data, structs and enums for named shapes.</p></div>
+        <div><strong>Errors</strong><p>`Result`, `Option`, explicit failure, and the `?` operator.</p></div>
+        <div><strong>Runtime</strong><p>The `alef` command, native runtime, tests, HTTP, JSON, and AI stdlib.</p></div>
+      </div>
+    </section>
+
+    <section class="surface-note" aria-label="Public surface">
+      <h2>Public docs, private source.</h2>
+      <p>Alef's documentation, examples, tutorials, release binaries, and example repositories can be public. The compiler and native runtime source repository remain private.</p>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <p class="eyebrow">Book</p>
+        <h2>Chapters</h2>
+      </div>
+      <div class="chapter-grid">
+        <a class="chapter-card" href="pages/book__01-why-alef-is-a-language.html"><span>1. Learning Alef From Zero</span><small>book/01-why-alef-is-a-language.md</small></a>
+        <a class="chapter-card" href="pages/book__02-installing-and-running.html"><span>2. Installing And Running Alef</span><small>book/02-installing-and-running.md</small></a>
+        <a class="chapter-card" href="pages/book__03-your-first-program.html"><span>3. Your First Alef Program</span><small>book/03-your-first-program.md</small></a>
+        <a class="chapter-card" href="pages/book__04-values-bindings-functions.html"><span>4. Syntax Fundamentals</span><small>book/04-values-bindings-functions.md</small></a>
+        <a class="chapter-card" href="pages/book__05-control-flow.html"><span>5. Control Flow</span><small>book/05-control-flow.md</small></a>
+        <a class="chapter-card" href="pages/book__06-collections-data-modeling.html"><span>6. Collections And Data Modeling</span><small>book/06-collections-data-modeling.md</small></a>
+        <a class="chapter-card" href="pages/book__07-results-options-errors.html"><span>7. Results, Options, And Errors</span><small>book/07-results-options-errors.md</small></a>
+        <a class="chapter-card" href="pages/book__08-modules-project-structure.html"><span>8. Modules And Project Structure</span><small>book/08-modules-project-structure.md</small></a>
+        <a class="chapter-card" href="pages/book__09-cli-native-runtime.html"><span>9. The Alef CLI And Native Runtime</span><small>book/09-cli-native-runtime.md</small></a>
+        <a class="chapter-card" href="pages/book__10-http-json.html"><span>10. HTTP And JSON</span><small>book/10-http-json.md</small></a>
+        <a class="chapter-card" href="pages/book__11-database-cache-state.html"><span>11. Database, Cache, And State</span><small>book/11-database-cache-state.md</small></a>
+        <a class="chapter-card" href="pages/book__12-ai-standard-library.html"><span>12. AI As Standard Library</span><small>book/12-ai-standard-library.md</small></a>
+        <a class="chapter-card" href="pages/book__13-testing.html"><span>13. Testing Alef Programs</span><small>book/13-testing.md</small></a>
+        <a class="chapter-card" href="pages/book__14-building-a-native-api.html"><span>14. Building A Native API</span><small>book/14-building-a-native-api.md</small></a>
+        <a class="chapter-card" href="pages/book__15-building-ticketdesk-ui.html"><span>15. Building TicketDesk UI</span><small>book/15-building-ticketdesk-ui.md</small></a>
+        <a class="chapter-card" href="pages/book__16-building-ai-ticket-router.html"><span>16. Building An AI Ticket Router</span><small>book/16-building-ai-ticket-router.md</small></a>
+        <a class="chapter-card" href="pages/docs__reference__language-specification.html"><span>A. Language Specification</span><small>docs/reference/language-specification.md</small></a>
+        <a class="chapter-card" href="pages/docs__reference__syntax.html"><span>B. Syntax Reference</span><small>docs/reference/syntax.md</small></a>
+        <a class="chapter-card" href="pages/docs__language__composition-ioc-di-aop.html"><span>C. Composition, IoC, DI, And AOP</span><small>docs/language/composition-ioc-di-aop.md</small></a>
+        <a class="chapter-card" href="pages/docs__runtime__cli.html"><span>D. Command Reference</span><small>docs/runtime/cli.md</small></a>
+        <a class="chapter-card" href="pages/docs__stdlib__overview.html"><span>E. Standard Library Reference</span><small>docs/stdlib/overview.md</small></a>
+        <a class="chapter-card" href="pages/docs__reference__gitbook-publishing.html"><span>F. GitBook Publishing</span><small>docs/reference/gitbook-publishing.md</small></a>
+        <a class="chapter-card" href="pages/docs__reference__dedication.html"><span>G. Dedication</span><small>docs/reference/dedication.md</small></a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

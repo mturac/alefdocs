@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntax Reference · Alef</title>
+  <link rel="icon" href="../assets/alef-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="../index.html"><img src="../assets/alef-logo.svg" alt="Alef"><span>Alef</span></a>
+    <nav><div class="nav-label">Start Here</div><a href="book__01-why-alef-is-a-language.html">1. Learning Alef From Zero</a><a href="book__02-installing-and-running.html">2. Installing And Running Alef</a><a href="book__03-your-first-program.html">3. Your First Alef Program</a><a href="docs__getting-started__quickstart.html">Quickstart</a><a href="docs__getting-started__project-structure.html">Project Structure</a><div class="nav-label">Language Guide</div><a href="book__04-values-bindings-functions.html">4. Syntax Fundamentals</a><a href="book__05-control-flow.html">5. Control Flow</a><a href="book__06-collections-data-modeling.html">6. Collections And Data Modeling</a><a href="book__07-results-options-errors.html">7. Results, Options, And Errors</a><a href="book__08-modules-project-structure.html">8. Modules And Project Structure</a><a href="docs__language__tour.html">Language Tour</a><a href="docs__language__variables.html">Variables</a><a href="docs__language__strings.html">Strings</a><a href="docs__language__functions.html">Functions</a><a href="docs__language__control-flow.html">Control Flow Guide</a><a href="docs__language__collections.html">Collections</a><a href="docs__language__structs-enums.html">Structs And Enums</a><a href="docs__language__results-errors.html">Results And Errors</a><a href="docs__language__modules.html">Modules</a><a href="docs__language__composition-ioc-di-aop.html">Composition, IoC, DI, And AOP</a><div class="nav-label">Runtime And Tooling</div><a href="book__09-cli-native-runtime.html">9. The Alef CLI And Native Runtime</a><a href="book__13-testing.html">13. Testing Alef Programs</a><a href="docs__runtime__cli.html">Command Reference</a><a href="docs__runtime__native-runtime.html">Native Runtime</a><a href="docs__runtime__testing.html">Testing</a><a href="docs__runtime__bytecode-jit.html">Bytecode And JIT</a><a href="docs__using__editor-tools.html">Editor Tools</a><a href="docs__using__diagnostics.html">Diagnostics</a><div class="nav-label">Standard Library</div><a href="book__10-http-json.html">10. HTTP And JSON</a><a href="book__11-database-cache-state.html">11. Database, Cache, And State</a><a href="book__12-ai-standard-library.html">12. AI As Standard Library</a><a href="docs__stdlib__overview.html">Standard Library Overview</a><a href="docs__stdlib__http-json.html">HTTP And JSON Reference</a><a href="docs__stdlib__db-cache.html">Database And Cache Reference</a><a href="docs__stdlib__ai.html">AI Reference</a><div class="nav-label">Tutorials And Code Walkthroughs</div><a href="book__14-building-a-native-api.html">14. Building A Native API</a><a href="book__15-building-ticketdesk-ui.html">15. Building TicketDesk UI</a><a href="book__16-building-ai-ticket-router.html">16. Building An AI Ticket Router</a><a href="docs__tutorials__native-api.html">Native API Tutorial</a><a href="docs__tutorials__ticketdesk-ui.html">TicketDesk UI Tutorial</a><a href="docs__tutorials__ai-workflow.html">AI Workflow Tutorial</a><a href="docs__codewalks__ticketdesk-ui.html">TicketDesk Code Walk</a><a href="docs__codewalks__agent-ticket-router.html">Agent Ticket Router Code Walk</a><div class="nav-label">Cookbook</div><a href="docs__cookbook__json-apis.html">JSON APIs</a><a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a><a href="docs__cookbook__server-rendered-ui.html">Server-Rendered UI</a><a href="docs__database__accessing-databases.html">Accessing Databases</a><a href="docs__database__database-smoke-tests.html">Database Smoke Tests</a><div class="nav-label">Modules And Packages</div><a href="docs__modules__developing-modules.html">Developing Modules</a><a href="docs__modules__publishing-examples.html">Publishing Examples</a><a href="docs__reference__alef-mod.html">alef.mod Reference</a><div class="nav-label">Using Alef Well</div><a href="docs__what-is-alef.html">What Is Alef</a><a href="docs__using__effective-alef.html">Effective Alef</a><a href="docs__using__faq.html">FAQ</a><div class="nav-label">Reference</div><a href="docs__reference__language-specification.html">Language Specification</a><a href="docs__reference__syntax.html">Syntax Reference</a><a href="docs__reference__examples.html">Examples Reference</a><a href="docs__reference__release-notes.html">Release Notes</a><a href="docs__reference__gitbook-publishing.html">GitBook Publishing</a><a href="docs__reference__dedication.html">Dedication</a></nav>
+  </aside>
+  <main class="content">
+    <h1 id="syntax-reference">Syntax Reference</h1>
+<p>This page is a practical syntax reference for writing
+<code>.alef</code> programs. It is public language documentation, not a
+description of the private compiler implementation.</p>
+<h2 id="file-shape">File Shape</h2>
+<pre class="alef"><code>import std.http { json_response }
+
+fn main() {
+    println(&quot;hello&quot;)
+}</code></pre>
+<p>Alef files usually contain imports, declarations, and statements
+inside functions. The conventional program entrypoint is
+<code>main</code>.</p>
+<h2 id="comments">Comments</h2>
+<pre class="alef"><code>// A line comment explains the next statement.
+println(&quot;ready&quot;)</code></pre>
+<h2 id="primitive-values">Primitive Values</h2>
+<pre class="alef"><code>let name = &quot;Ada&quot;
+let count = 3
+let ratio = 0.75
+let active = true
+let missing = none</code></pre>
+<h2 id="strings">Strings</h2>
+<p>Strings use double quotes. Interpolation uses
+<code>{name}</code>.</p>
+<pre class="alef"><code>let id = &quot;TD-101&quot;
+println(&quot;ticket {id} loaded&quot;)</code></pre>
+<h2 id="bindings">Bindings</h2>
+<pre class="alef"><code>let name = &quot;Ada&quot;
+name = &quot;Grace&quot;</code></pre>
+<p>Use reassignment for a real state transition. Use a new binding when
+the new value has a distinct meaning.</p>
+<h2 id="function">Function</h2>
+<pre class="alef"><code>fn add(a, b) {
+    return a + b
+}</code></pre>
+<h2 id="typed-function">Typed Function</h2>
+<pre class="alef"><code>fn add(a: int, b: int) -&gt; int {
+    return a + b
+}</code></pre>
+<h2 id="decorator">Decorator</h2>
+<p>Decorators attach supported metadata to the function that follows
+them.</p>
+<pre class="alef"><code>@deprecated(&quot;use new_add instead&quot;)
+fn old_add(a: int, b: int) -&gt; int {
+    return a + b
+}
+
+@inline
+fn new_add(a: int, b: int) -&gt; int {
+    return a + b
+}</code></pre>
+<p>Supported public decorators are <code>@test</code>,
+<code>@bench</code>, <code>@deprecated</code>, <code>@inline</code>, and
+<code>@noinline</code>.</p>
+<h2 id="operators">Operators</h2>
+<pre class="alef"><code>let n = 1 + 2 * 3
+let ok = n &gt;= 3
+let visible = ok and not hidden
+let owner = plan == &quot;enterprise&quot; or priority == &quot;P0&quot;</code></pre>
+<p>Use <code>==</code> for equality. Use <code>and</code>,
+<code>or</code>, and <code>not</code> for boolean logic.</p>
+<h2 id="array">Array</h2>
+<pre class="alef"><code>let xs = [1, 2, 3]
+xs.push(4)
+println(xs[0])</code></pre>
+<h2 id="map">Map</h2>
+<pre class="alef"><code>let ticket = {
+    &quot;id&quot; =&gt; &quot;TD-101&quot;,
+    &quot;status&quot; =&gt; &quot;triage&quot;
+}
+
+println(ticket[&quot;status&quot;])</code></pre>
+<h2 id="struct">Struct</h2>
+<pre class="alef"><code>struct Ticket {
+    id: string,
+    title: string
+}
+
+let ticket = Ticket {
+    id: &quot;TD-101&quot;,
+    title: &quot;Checkout timeout&quot;
+}
+
+println(ticket.title)</code></pre>
+<h2 id="enum">Enum</h2>
+<pre class="alef"><code>enum Status {
+    Triage,
+    Progress,
+    Done,
+}
+
+let status = Status.Triage</code></pre>
+<h2 id="if">If</h2>
+<pre class="alef"><code>if ok {
+    return &quot;yes&quot;
+}
+return &quot;no&quot;</code></pre>
+<p>Use <code>else</code> when both branches produce useful work:</p>
+<pre class="alef"><code>if priority == &quot;P0&quot; {
+    println(&quot;page incident lead&quot;)
+} else {
+    println(&quot;queue normally&quot;)
+}</code></pre>
+<h2 id="for">For</h2>
+<pre class="alef"><code>for item in items {
+    println(item)
+}</code></pre>
+<h2 id="while">While</h2>
+<pre class="alef"><code>while retries &lt; 3 {
+    retries = retries + 1
+}</code></pre>
+<h2 id="match">Match</h2>
+<pre class="alef"><code>match value {
+    Ok(v) =&gt; v,
+    Err(e) =&gt; 0,
+}</code></pre>
+<h2 id="result">Result</h2>
+<pre class="alef"><code>fn divide(a: f64, b: f64) -&gt; Result&lt;f64, string&gt; {
+    if b == 0.0 {
+        return Err(&quot;division by zero&quot;)
+    }
+    return Ok(a / b)
+}</code></pre>
+<h2 id="option">Option</h2>
+<pre class="alef"><code>fn find_owner(ticket) -&gt; Option&lt;string&gt; {
+    if ticket[&quot;owner&quot;] == &quot;&quot; {
+        return None
+    }
+    return Some(ticket[&quot;owner&quot;])
+}</code></pre>
+<h2 id="import">Import</h2>
+<pre class="alef"><code>import std.http { json_response }</code></pre>
+<h2 id="complete-small-program">Complete Small Program</h2>
+<pre class="alef"><code>fn priority(plan, blocked) {
+    if plan == &quot;enterprise&quot; and blocked {
+        return &quot;P0&quot;
+    }
+    return &quot;P2&quot;
+}
+
+fn main() {
+    let ticket = {
+        &quot;id&quot; =&gt; &quot;TD-101&quot;,
+        &quot;title&quot; =&gt; &quot;Checkout timeout&quot;,
+        &quot;plan&quot; =&gt; &quot;enterprise&quot;,
+        &quot;blocked&quot; =&gt; true
+    }
+
+    let p = priority(ticket[&quot;plan&quot;], ticket[&quot;blocked&quot;])
+    let id = ticket[&quot;id&quot;]
+    println(&quot;{id}: {p}&quot;)
+}</code></pre>
+      <h2 id="advanced-ai-native">Advanced AI-Native</h2>
+      <p>Alef is designed for AI workloads with DeepMind/JAX-inspired vectorization, differentiation, macros, and data streams.</p>
+      <pre class="alef"><code>// 1. Vectorization (vmap) and Differentiation (grad)
+fn f(x) { x * 2.0 }
+let vec_f = vmap(f)
+let grad_f = grad(f)
+
+// 2. Metaprogramming (macro)
+macro html(content) {
+    "&lt;div class=\"ai-gen\"&gt;" + content + "&lt;/div&gt;"
+}
+let ui = html!("Hello AI")
+
+// 3. Async Streams (Generators)
+fn stream_llm() {
+    yield "Hello"
+    yield "World"
+}
+for await chunk in stream_llm() {
+    print(chunk)
+}
+</code></pre>
+  </main>
+</body>
+</html>

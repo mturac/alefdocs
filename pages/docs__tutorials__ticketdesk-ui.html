@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TicketDesk UI Tutorial · Alef</title>
+  <link rel="icon" href="../assets/alef-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="../index.html"><img src="../assets/alef-logo.svg" alt="Alef"><span>Alef</span></a>
+    <nav><div class="nav-label">Start Here</div><a href="book__01-why-alef-is-a-language.html">1. Learning Alef From Zero</a><a href="book__02-installing-and-running.html">2. Installing And Running Alef</a><a href="book__03-your-first-program.html">3. Your First Alef Program</a><a href="docs__getting-started__quickstart.html">Quickstart</a><a href="docs__getting-started__project-structure.html">Project Structure</a><div class="nav-label">Language Guide</div><a href="book__04-values-bindings-functions.html">4. Syntax Fundamentals</a><a href="book__05-control-flow.html">5. Control Flow</a><a href="book__06-collections-data-modeling.html">6. Collections And Data Modeling</a><a href="book__07-results-options-errors.html">7. Results, Options, And Errors</a><a href="book__08-modules-project-structure.html">8. Modules And Project Structure</a><a href="docs__language__tour.html">Language Tour</a><a href="docs__language__variables.html">Variables</a><a href="docs__language__strings.html">Strings</a><a href="docs__language__functions.html">Functions</a><a href="docs__language__control-flow.html">Control Flow Guide</a><a href="docs__language__collections.html">Collections</a><a href="docs__language__structs-enums.html">Structs And Enums</a><a href="docs__language__results-errors.html">Results And Errors</a><a href="docs__language__modules.html">Modules</a><a href="docs__language__composition-ioc-di-aop.html">Composition, IoC, DI, And AOP</a><div class="nav-label">Runtime And Tooling</div><a href="book__09-cli-native-runtime.html">9. The Alef CLI And Native Runtime</a><a href="book__13-testing.html">13. Testing Alef Programs</a><a href="docs__runtime__cli.html">Command Reference</a><a href="docs__runtime__native-runtime.html">Native Runtime</a><a href="docs__runtime__testing.html">Testing</a><a href="docs__runtime__bytecode-jit.html">Bytecode And JIT</a><a href="docs__using__editor-tools.html">Editor Tools</a><a href="docs__using__diagnostics.html">Diagnostics</a><div class="nav-label">Standard Library</div><a href="book__10-http-json.html">10. HTTP And JSON</a><a href="book__11-database-cache-state.html">11. Database, Cache, And State</a><a href="book__12-ai-standard-library.html">12. AI As Standard Library</a><a href="docs__stdlib__overview.html">Standard Library Overview</a><a href="docs__stdlib__http-json.html">HTTP And JSON Reference</a><a href="docs__stdlib__db-cache.html">Database And Cache Reference</a><a href="docs__stdlib__ai.html">AI Reference</a><div class="nav-label">Tutorials And Code Walkthroughs</div><a href="book__14-building-a-native-api.html">14. Building A Native API</a><a href="book__15-building-ticketdesk-ui.html">15. Building TicketDesk UI</a><a href="book__16-building-ai-ticket-router.html">16. Building An AI Ticket Router</a><a href="docs__tutorials__native-api.html">Native API Tutorial</a><a href="docs__tutorials__ticketdesk-ui.html">TicketDesk UI Tutorial</a><a href="docs__tutorials__ai-workflow.html">AI Workflow Tutorial</a><a href="docs__codewalks__ticketdesk-ui.html">TicketDesk Code Walk</a><a href="docs__codewalks__agent-ticket-router.html">Agent Ticket Router Code Walk</a><div class="nav-label">Cookbook</div><a href="docs__cookbook__json-apis.html">JSON APIs</a><a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a><a href="docs__cookbook__server-rendered-ui.html">Server-Rendered UI</a><a href="docs__database__accessing-databases.html">Accessing Databases</a><a href="docs__database__database-smoke-tests.html">Database Smoke Tests</a><div class="nav-label">Modules And Packages</div><a href="docs__modules__developing-modules.html">Developing Modules</a><a href="docs__modules__publishing-examples.html">Publishing Examples</a><a href="docs__reference__alef-mod.html">alef.mod Reference</a><div class="nav-label">Using Alef Well</div><a href="docs__what-is-alef.html">What Is Alef</a><a href="docs__using__effective-alef.html">Effective Alef</a><a href="docs__using__faq.html">FAQ</a><div class="nav-label">Reference</div><a href="docs__reference__language-specification.html">Language Specification</a><a href="docs__reference__syntax.html">Syntax Reference</a><a href="docs__reference__examples.html">Examples Reference</a><a href="docs__reference__release-notes.html">Release Notes</a><a href="docs__reference__gitbook-publishing.html">GitBook Publishing</a><a href="docs__reference__dedication.html">Dedication</a></nav>
+  </aside>
+  <main class="content">
+    <h1>Tutorial: Build TicketDesk UI</h1>
+<p>TicketDesk is a real-life Alef example: a multi-workspace ticket and task manager served by the native runtime.</p>
+<p>It demonstrates:</p>
+<ul>
+<li>server-rendered UI</li>
+<li>multiple workspaces</li>
+<li>ticket columns</li>
+<li>assignment actions</li>
+<li>status movement</li>
+<li>activity feed</li>
+<li>JSON API verification</li>
+</ul>
+<h2>Data Model</h2>
+<pre><code class="language-alef">
+fn workspace_seed() {
+    return [
+        { &quot;id&quot; =&gt; &quot;ops&quot;, &quot;name&quot; =&gt; &quot;Ops Desk&quot;, &quot;lead&quot; =&gt; &quot;Ada&quot;, &quot;sla&quot; =&gt; &quot;4h&quot; },
+        { &quot;id&quot; =&gt; &quot;product&quot;, &quot;name&quot; =&gt; &quot;Product Bugs&quot;, &quot;lead&quot; =&gt; &quot;Grace&quot;, &quot;sla&quot; =&gt; &quot;1d&quot; }
+    ]
+}
+
+fn ticket_seed() {
+    return [
+        {
+            &quot;id&quot; =&gt; &quot;TD-101&quot;,
+            &quot;workspace&quot; =&gt; &quot;ops&quot;,
+            &quot;title&quot; =&gt; &quot;Checkout API timeout&quot;,
+            &quot;status&quot; =&gt; &quot;triage&quot;,
+            &quot;priority&quot; =&gt; &quot;P0&quot;,
+            &quot;assignee&quot; =&gt; &quot;ada&quot;
+        }
+    ]
+}
+</code></pre>
+<h2>Stateful UI Handler</h2>
+<pre><code class="language-alef">
+import std.http { html }
+
+fn with_state(response, state) {
+    return { &quot;response&quot; =&gt; response, &quot;state&quot; =&gt; state }
+}
+
+fn page(request, state) {
+    let body = &quot;&lt;!doctype html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Alef TicketDesk&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+    return with_state(html(body), state)
+}
+</code></pre>
+<h2>Action Route</h2>
+<pre><code class="language-alef">
+fn move_ticket(request, state) {
+    let id = request[&quot;params&quot;][&quot;id&quot;]
+    let status = request[&quot;params&quot;][&quot;status&quot;]
+    let tickets = []
+
+    for ticket in state[&quot;tickets&quot;] {
+        if ticket[&quot;id&quot;] == id {
+            tickets.push({
+                &quot;id&quot; =&gt; ticket[&quot;id&quot;],
+                &quot;workspace&quot; =&gt; ticket[&quot;workspace&quot;],
+                &quot;title&quot; =&gt; ticket[&quot;title&quot;],
+                &quot;status&quot; =&gt; status,
+                &quot;priority&quot; =&gt; ticket[&quot;priority&quot;],
+                &quot;assignee&quot; =&gt; ticket[&quot;assignee&quot;]
+            })
+        } else {
+            tickets.push(ticket)
+        }
+    }
+
+    let next = {
+        &quot;workspaces&quot; =&gt; state[&quot;workspaces&quot;],
+        &quot;tickets&quot; =&gt; tickets,
+        &quot;events&quot; =&gt; state[&quot;events&quot;],
+        &quot;selected&quot; =&gt; state[&quot;selected&quot;]
+    }
+    return with_state(html(&quot;&lt;p&gt;updated&lt;/p&gt;&quot;), next)
+}
+</code></pre>
+<h2>Routes</h2>
+<pre><code class="language-alef">
+fn app() {
+    let app = std.http.with_state(std.http.app(), initial_state())
+    let app = std.http.route(app, &quot;GET&quot;, &quot;/&quot;, page)
+    let app = std.http.route(app, &quot;GET&quot;, &quot;/workspace/:id&quot;, workspace_page)
+    let app = std.http.route(app, &quot;GET&quot;, &quot;/move/:id/:status&quot;, move_ticket)
+    return std.http.route(app, &quot;GET&quot;, &quot;/api/tickets&quot;, tickets_json)
+}
+</code></pre>
+<h2>Smoke Test Contract</h2>
+<p>A serious Alef UI example should prove:</p>
+<ul>
+<li><code>GET /</code> returns real HTML</li>
+<li>a workspace switch updates the visible board</li>
+<li>move/assign routes mutate state</li>
+<li><code>/api/tickets</code> exposes the changed state</li>
+<li><code>/__shutdown</code> stops the server cleanly</li>
+</ul>
+<p>That is why the public TicketDesk repo ships <code>scripts/smoke.sh</code>.</p>
+  </main>
+</body>
+</html>
