@@ -58,3 +58,38 @@ Alef provides an `embed` function to generate embeddings from text.
 let embedding = std.ai.embed("ollama", "Hello world");
 println(embedding[0]); // First float in the embedding vector
 ```
+
+## Chat helpers
+
+Higher-level chat APIs accept message lists (role + content). Prefer them for
+multi-turn agents:
+
+```alef
+let r = std.ai.chat_with("stub", [
+    { "role" => "system", "content" => "You are a concise assistant." },
+    { "role" => "user", "content" => "Summarize: deploy failed on auth" }
+])
+println(r.text)
+```
+
+Streaming variants exist for token/chunk delivery (`stream`, `chat_stream`, and
+`*_with` / `*_options` forms depending on release). Always keep a `stub` path
+for docs and tests.
+
+## Tool-calling (advanced)
+
+Some providers support tool/function calls via `chat_with_tools` style APIs.
+Treat tool schemas as application data (maps/JSON), not as a separate language
+feature. Gate live providers with environment checks.
+
+## Pairing AI with HTTP and jobs
+
+A common production shape is:
+
+1. `std.http` serves `/api/chat`, `/api/history`, health, and shutdown.
+2. `std.ai` answers prompts (stub in CI, real provider in prod).
+3. `std.db` stores sessions.
+4. `std.jobs` runs background work with retry.
+
+See [What's New — July 2026](../reference/whats-new-2026-07.md) and the
+[AI workflow tutorial](../tutorials/ai-workflow.md).

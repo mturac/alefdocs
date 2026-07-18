@@ -75,6 +75,30 @@ problem_response(404, "not_found", "missing", "req-1")
 html("<h1>Hello</h1>")
 ```
 
+## Cookies
+
+Helpers parse and format `Cookie` / `Set-Cookie` style header values:
+
+```alef
+// Parse an incoming Cookie header string into name/value pairs (map).
+let cookies = std.http.parse_cookies(request["headers"]["cookie"])
+
+// Format a cookie for Set-Cookie responses.
+let header = std.http.format_cookie("session", "abc", {
+    "path" => "/",
+    "http_only" => true
+})
+```
+
+Exact map keys may grow with releases; keep cookie values small and never store
+secrets in client-readable cookies without encryption.
+
+## Headers
+
+```alef
+let auth = std.http.get_header(request["headers"], "authorization")
+```
+
 ## JSON
 
 ```alef

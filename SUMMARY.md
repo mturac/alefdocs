@@ -66,6 +66,7 @@
 
 * [JSON APIs](docs/cookbook/json-apis.md)
 * [Provider-Gated AI](docs/cookbook/provider-gated-ai.md)
+* [AI Agent Backend](docs/cookbook/ai-agent-backend.md)
 * [Server-Rendered UI](docs/cookbook/server-rendered-ui.md)
 * [Accessing Databases](docs/database/accessing-databases.md)
 * [Database Smoke Tests](docs/database/database-smoke-tests.md)
@@ -87,6 +88,7 @@
 * [Language Specification](docs/reference/language-specification.md)
 * [Syntax Reference](docs/reference/syntax.md)
 * [Examples Reference](docs/reference/examples.md)
+* [What's New — July 2026](docs/reference/whats-new-2026-07.md)
 * [Release Notes](docs/reference/release-notes.md)
 * [GitBook Publishing](docs/reference/gitbook-publishing.md)
 * [Dedication](docs/reference/dedication.md)

@@ -117,3 +117,16 @@ ALEF_BIN=/path/to/alef bash scripts/smoke.sh
 ```
 
 If `ALEF_BIN` is not set, examples should fall back to `alef` from `PATH`.
+
+## macOS: sign the binary
+
+After downloading and placing the `alef` binary, ad-hoc sign it so macOS
+Taskgated does not block execution:
+
+```bash
+chmod +x ./alef
+codesign --force -s - ./alef
+./alef --version
+```
+
+Public docs: [What's New — July 2026](../docs/reference/whats-new-2026-07.md).
