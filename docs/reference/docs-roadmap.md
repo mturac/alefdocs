@@ -7,7 +7,7 @@ private compiler work as a completion metric.
 Live site: [mturac.github.io/alefdocs](https://mturac.github.io/alefdocs/)  
 Repo: [github.com/mturac/alefdocs](https://github.com/mturac/alefdocs)
 
-**Updated:** 2026-07-18
+**Updated:** 2026-07-18 (Phase 5 pages landed)
 
 ## How to read this
 
@@ -25,10 +25,10 @@ Private language/runtime source stays private. This roadmap is **docs-only**.
 ## Progress at a glance
 
 ```text
-[████████████░░░░░░░░]  ~60% of public learning path
+[███████████████░░░░░]  ~75% of public learning path
 
-Done     Install · first program · syntax book · HTTP/AI/DB core · July 2026 notes
-Now      Stdlib depth pages · agent backend examples · install binaries polish
+Done     Install · book · HTTP/AI/DB · crypto/sync/time/io/jobs refs · July 2026 notes
+Now      Agent backend live polish · install binaries polish
 Next     Cookbook expansion · language-spec gaps · searchable nav
 Later    Full multi-language locales · generated API index · video track
 ```
@@ -40,7 +40,7 @@ Later    Full multi-language locales · generated API index · video track
 | 2 | Language book (syntax, data, errors, modules) | **Done** |
 | 3 | Runtime + core stdlib (HTTP, JSON, DB, AI stub) | **Done** |
 | 4 | July 2026 maturity snapshot (What's New, release notes) | **Done** |
-| 5 | Stdlib depth (crypto, sync, time, io, jobs, cookies) | **Now** |
+| 5 | Stdlib depth (crypto, sync, time, io, jobs, cookies) | **Done** (expand in place) |
 | 6 | Agent backend path (HTTP + AI + jobs + sessions) | **Now** |
 | 7 | Cookbook & real-world recipes | **Next** |
 | 8 | Spec completeness + navigability | **Next** |
@@ -94,26 +94,27 @@ Later    Full multi-language locales · generated API index · video track
 
 Honest maturity line (also on What's New): Alef is **AI-native + native-first**, not full Go/.NET stdlib parity.
 
-## Phase 5 — Stdlib depth · Now
+## Phase 5 — Stdlib depth · Now → largely Done
 
-Target pages (expand until each has runnable, native-path examples):
+Dedicated native-path reference pages:
 
-1. `std.crypto` / `std.encoding` (HMAC, base64, random) — partial in overview
-2. `std.sync` / `std.concurrent` (`when_all` / `when_any`)
-3. `std.time` / `std.io`
-4. `std.jobs` (enqueue, retry, persist) — sketched in What's New + cookbook
-5. HTTP cookies / headers — started in [HTTP reference](../stdlib/http-json.md)
+1. [Crypto And Encoding](../stdlib/crypto-encoding.md) — **Done**
+2. [Sync And Concurrent](../stdlib/sync-concurrent.md) — **Done**
+3. [Time And IO](../stdlib/time-io.md) — **Done**
+4. [Jobs](../stdlib/jobs.md) — **Done**
+5. HTTP cookies / headers — in [HTTP reference](../stdlib/http-json.md) — **Done** (section)
 
-**Done when:** Each module above has a dedicated or clearly sectioned reference page with `alef run` examples.
+**Exit:** Each cluster has a dedicated or clearly sectioned page with `alef run` examples.
+Further depth (AES/Ed25519 recipes, full sync primitive catalog) can still expand in place.
 
 ## Phase 6 — Agent backend path · Now
 
 | Work | Status |
 |------|--------|
-| [AI Agent Backend cookbook](../cookbook/ai-agent-backend.md) | Skeleton **Done** |
-| Multi-turn chat + stream in AI ref | Partial **Now** |
-| Sessions with `std.db` recipe | **Now** |
-| Jobs + dead-letter recipe | **Next** inside this phase |
+| [AI Agent Backend cookbook](../cookbook/ai-agent-backend.md) | E2E checklist **Done** |
+| Multi-turn chat + stream notes | **Done** (stub-safe) |
+| Sessions with `std.db` recipe | Sketch **Done** (wire to db-cache) |
+| Jobs + dead-letter recipe | **Done** in cookbook + [Jobs](../stdlib/jobs.md) |
 
 **Done when:** One end-to-end public recipe: chat API + history + stub AI + shutdown path, copy-pasteable from docs alone.
 
@@ -164,3 +165,4 @@ Planned recipes (not yet full pages):
 | Date | Note |
 |------|------|
 | 2026-07-18 | Initial roadmap; Phases 0–4 Done; 5–6 Now; 7–8 Next; 9 Later |
+| 2026-07-18 | Phase 5 reference pages + agent-backend e2e cookbook expansion |

@@ -50,6 +50,10 @@
 * [HTTP And JSON Reference](docs/stdlib/http-json.md)
 * [Database And Cache Reference](docs/stdlib/db-cache.md)
 * [AI Reference](docs/stdlib/ai.md)
+* [Crypto And Encoding](docs/stdlib/crypto-encoding.md)
+* [Sync And Concurrent](docs/stdlib/sync-concurrent.md)
+* [Time And IO](docs/stdlib/time-io.md)
+* [Jobs](docs/stdlib/jobs.md)
 
 ## Tutorials And Code Walkthroughs
 

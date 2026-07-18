@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Agent Backend · Alef</title>
+  <title>Crypto And Encoding · Alef</title>
   <link rel="icon" href="../assets/alef-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
@@ -13,145 +13,80 @@
     <nav><div class="nav-label">Start Here</div><a href="book__01-why-alef-is-a-language.html">1. Learning Alef From Zero</a><a href="book__02-installing-and-running.html">2. Installing And Running Alef</a><a href="book__03-your-first-program.html">3. Your First Alef Program</a><a href="docs__getting-started__quickstart.html">Quickstart</a><a href="docs__getting-started__project-structure.html">Project Structure</a><div class="nav-label">Language Guide</div><a href="book__04-values-bindings-functions.html">4. Syntax Fundamentals</a><a href="book__05-control-flow.html">5. Control Flow</a><a href="book__06-collections-data-modeling.html">6. Collections And Data Modeling</a><a href="book__07-results-options-errors.html">7. Results, Options, And Errors</a><a href="book__08-modules-project-structure.html">8. Modules And Project Structure</a><a href="docs__language__tour.html">Language Tour</a><a href="docs__language__variables.html">Variables</a><a href="docs__language__strings.html">Strings</a><a href="docs__language__functions.html">Functions</a><a href="docs__language__control-flow.html">Control Flow Guide</a><a href="docs__language__collections.html">Collections</a><a href="docs__language__structs-enums.html">Structs And Enums</a><a href="docs__language__results-errors.html">Results And Errors</a><a href="docs__language__modules.html">Modules</a><a href="docs__language__composition-ioc-di-aop.html">Composition, IoC, DI, And AOP</a><div class="nav-label">Runtime And Tooling</div><a href="book__09-cli-native-runtime.html">9. The Alef CLI And Native Runtime</a><a href="book__13-testing.html">13. Testing Alef Programs</a><a href="docs__runtime__cli.html">Command Reference</a><a href="docs__runtime__native-runtime.html">Native Runtime</a><a href="docs__runtime__testing.html">Testing</a><a href="docs__runtime__bytecode-jit.html">Bytecode And JIT</a><a href="docs__using__editor-tools.html">Editor Tools</a><a href="docs__using__diagnostics.html">Diagnostics</a><div class="nav-label">Standard Library</div><a href="book__10-http-json.html">10. HTTP And JSON</a><a href="book__11-database-cache-state.html">11. Database, Cache, And State</a><a href="book__12-ai-standard-library.html">12. AI As Standard Library</a><a href="docs__stdlib__overview.html">Standard Library Overview</a><a href="docs__stdlib__http-json.html">HTTP And JSON Reference</a><a href="docs__stdlib__db-cache.html">Database And Cache Reference</a><a href="docs__stdlib__ai.html">AI Reference</a><a href="docs__stdlib__crypto-encoding.html">Crypto And Encoding</a><a href="docs__stdlib__sync-concurrent.html">Sync And Concurrent</a><a href="docs__stdlib__time-io.html">Time And IO</a><a href="docs__stdlib__jobs.html">Jobs</a><div class="nav-label">Tutorials And Code Walkthroughs</div><a href="book__14-building-a-native-api.html">14. Building A Native API</a><a href="book__15-building-ticketdesk-ui.html">15. Building TicketDesk UI</a><a href="book__16-building-ai-ticket-router.html">16. Building An AI Ticket Router</a><a href="docs__tutorials__native-api.html">Native API Tutorial</a><a href="docs__tutorials__ticketdesk-ui.html">TicketDesk UI Tutorial</a><a href="docs__tutorials__ai-workflow.html">AI Workflow Tutorial</a><a href="docs__codewalks__ticketdesk-ui.html">TicketDesk Code Walk</a><a href="docs__codewalks__agent-ticket-router.html">Agent Ticket Router Code Walk</a><div class="nav-label">Cookbook</div><a href="docs__cookbook__json-apis.html">JSON APIs</a><a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a><a href="docs__cookbook__ai-agent-backend.html">AI Agent Backend</a><a href="docs__cookbook__server-rendered-ui.html">Server-Rendered UI</a><a href="docs__database__accessing-databases.html">Accessing Databases</a><a href="docs__database__database-smoke-tests.html">Database Smoke Tests</a><div class="nav-label">Modules And Packages</div><a href="docs__modules__developing-modules.html">Developing Modules</a><a href="docs__modules__publishing-examples.html">Publishing Examples</a><a href="docs__reference__alef-mod.html">alef.mod Reference</a><div class="nav-label">Using Alef Well</div><a href="docs__what-is-alef.html">What Is Alef</a><a href="docs__using__effective-alef.html">Effective Alef</a><a href="docs__using__faq.html">FAQ</a><div class="nav-label">Reference</div><a href="docs__reference__language-specification.html">Language Specification</a><a href="docs__reference__syntax.html">Syntax Reference</a><a href="docs__reference__examples.html">Examples Reference</a><a href="docs__reference__whats-new-2026-07.html">What's New — July 2026</a><a href="docs__reference__docs-roadmap.html">Documentation Roadmap</a><a href="docs__reference__release-notes.html">Release Notes</a><a href="docs__reference__gitbook-publishing.html">GitBook Publishing</a><a href="docs__reference__dedication.html">Dedication</a></nav>
   </aside>
   <main class="content">
-<h1>Cookbook: AI Agent Backend</h1>
-<p>Build a small agent backend as <strong>one native process</strong>: HTTP API + AI + optional</p>
-<p>SQLite sessions + background jobs.</p>
-<h2>Shape</h2>
-<ul>
-<li>1. Listen with <code>std.http.listen_options</code> and a shutdown path for tests.</li>
-<li>2. Route <code>POST /api/chat</code> to a handler that calls <code>std.ai.chat_with</code> (stub-safe).</li>
-<li>3. Store turns in <code>std.db</code> when you need history across restarts.</li>
-<li>4. Enqueue side work with <code>std.jobs</code> (audit, webhooks, retries).</li>
-</ul>
-<h2>Minimal chat handler (stub-safe)</h2>
-<pre><code class="language-alef">
-import std.http { json_response, problem_response }
-
-fn with_state(response, state) {
-    return { &quot;response&quot; =&gt; response, &quot;state&quot; =&gt; state }
-}
-
-fn chat(request, state) {
-    let body = json_decode(request[&quot;body&quot;])
-    let prompt = body[&quot;prompt&quot;]
-    if prompt == null or prompt == &quot;&quot; {
-        return with_state(problem_response(400, &quot;bad_request&quot;, &quot;missing prompt&quot;, &quot;req-1&quot;), state)
-    }
-    let r = std.ai.chat_with(&quot;stub&quot;, [
-        { &quot;role&quot; =&gt; &quot;user&quot;, &quot;content&quot; =&gt; prompt }
-    ])
-    return with_state(json_response(json_encode({
-        &quot;text&quot; =&gt; r.text,
-        &quot;provider&quot; =&gt; r.provider
-    })), state)
-}
-</code></pre>
-<h2>Multi-turn messages</h2>
-<p>Pass the full history each request. Keep roles explicit (<code>user</code> / <code>assistant</code> /</p>
-<p><code>system</code>):</p>
-<pre><code class="language-alef">
-fn chat_turns(request, state) {
-    let body = json_decode(request[&quot;body&quot;])
-    let messages = body[&quot;messages&quot;]
-    if messages == null {
-        return with_state(problem_response(400, &quot;bad_request&quot;, &quot;missing messages&quot;, &quot;req-2&quot;), state)
-    }
-    let r = std.ai.chat_with(&quot;stub&quot;, messages)
-    return with_state(json_response(json_encode({
-        &quot;text&quot; =&gt; r.text,
-        &quot;provider&quot; =&gt; r.provider
-    })), state)
-}
-</code></pre>
-<p>Streaming variants (<code>stream</code>, <code>chat_stream</code>, and <code>*_with</code> forms) exist on the</p>
-<p>native AI surface — always keep a <strong><code>stub</code></strong> path for CI and docs runs.</p>
-<h2>Sessions with <code>std.db</code> (sketch)</h2>
-<p>Store turns keyed by session id. Exact SQL helpers follow <a href="docs__stdlib__db-cache.html">Database And Cache</a>:</p>
-<pre><code class="language-alef">
-// Pseudocode shape — wire exec/query to your migration table.
-fn append_turn(db, session_id, role, content) {
-    // std.db.exec(db, &quot;INSERT INTO turns(session_id, role, content) VALUES (?, ?, ?)&quot;,
-    //     [session_id, role, content])
-    return true
-}
-
-fn load_turns(db, session_id) {
-    // return std.db.query(db, &quot;SELECT role, content FROM turns WHERE session_id = ? ORDER BY id&quot;,
-    //     [session_id])
-    return []
-}
-</code></pre>
-<p>On <code>POST /api/chat</code>:</p>
-<ul>
-<li>1. Read <code>session_id</code> + <code>prompt</code> from JSON.</li>
-<li>2. <code>load_turns</code> → append user message → <code>chat_with</code> → append assistant text.</li>
-<li>3. Return <code>{ text, session_id }</code>.</li>
-</ul>
-<h2>Jobs for side work</h2>
-<p>After a successful chat, enqueue non-critical work so the HTTP path stays thin:</p>
-<pre><code class="language-alef">
-import std.jobs { make, enqueue, drain, mark_processed, stats }
-
-fn main() {
-    let q = make()
-    enqueue(q, {
-        &quot;kind&quot; =&gt; &quot;audit&quot;,
-        &quot;session_id&quot; =&gt; &quot;s-1&quot;,
-        &quot;prompt_len&quot; =&gt; 42
-    })
-    let batch = drain(q, 8)
-    for job in batch {
-        if job != null {
-            // send webhook / write audit row
-            mark_processed(q, true)
-        }
-    }
-    println(stats(q))
-}
-</code></pre>
-<p>Dead-letter path: <code>mark_failed(q, reason)</code> when processing throws or returns a</p>
-<p>hard error. Optional <code>persist</code> / <code>restore</code> keep the queue across restarts.</p>
-<h2>End-to-end checklist (copy-paste goal)</h2>
+<h1>Crypto And Encoding Reference</h1>
+<p>Native path (<code>alef run</code>). Digests, HMAC, random bytes, and base64 helpers.</p>
+<h2><code>std.crypto</code></h2>
 <table>
 <tr>
-<th>Step</th>
-<th>Surface</th>
-<th>Done when</th>
+<th>Function</th>
+<th>Role</th>
 </tr>
 <tr>
-<td>1</td>
-<td><code>listen_options</code> + <code>/__shutdown</code></td>
-<td>Server starts and stops in tests</td>
+<td><code>sha256(data)</code></td>
+<td>SHA-256 hex digest of a string</td>
 </tr>
 <tr>
-<td>2</td>
-<td><code>POST /api/chat</code> + <code>stub</code></td>
-<td>Returns JSON without provider keys</td>
+<td><code>hmac_sha256(key, data)</code></td>
+<td>HMAC-SHA256 hex digest</td>
 </tr>
 <tr>
-<td>3</td>
-<td>Multi-turn <code>messages</code></td>
-<td>History list accepted</td>
+<td><code>random_bytes(n)</code></td>
+<td>Cryptographic random bytes as hex (length <code>n</code>)</td>
 </tr>
 <tr>
-<td>4</td>
-<td><code>std.db</code> turns table</td>
-<td>History survives process restart</td>
-</tr>
-<tr>
-<td>5</td>
-<td><code>std.jobs</code> audit enqueue</td>
-<td>Drain loop marks processed</td>
+<td><code>sha256_base64(data)</code></td>
+<td>SHA-256 over base64-decoded input (specialized form)</td>
 </tr>
 </table>
-<h2>Tips</h2>
+<p>Additional primitives (AES, Ed25519, PBKDF2, and related helpers) ship on the</p>
+<p>native binary; start with the functions above for signatures and tokens.</p>
+<h3>Runnable digests</h3>
+<pre><code class="language-alef">
+import std.crypto { sha256, hmac_sha256, random_bytes }
+
+fn main() {
+    println(sha256(&quot;abc&quot;))
+    println(hmac_sha256(&quot;secret&quot;, &quot;payload&quot;))
+    println(random_bytes(16))
+}
+</code></pre>
+<pre><code class="language-bash">
+alef run main.alef
+</code></pre>
+<h2><code>std.encoding</code> and <code>std.base64</code></h2>
+<table>
+<tr>
+<th>Function</th>
+<th>Role</th>
+</tr>
+<tr>
+<td><code>std.encoding.base64_encode(s)</code></td>
+<td>Base64-encode a string</td>
+</tr>
+<tr>
+<td><code>std.encoding.base64_decode(s)</code></td>
+<td>Base64-decode a string</td>
+</tr>
+<tr>
+<td><code>std.base64.encode(s)</code> / <code>decode(s)</code></td>
+<td>Same helpers under the <code>std.base64</code> namespace</td>
+</tr>
+</table>
+<h3>Encode and decode</h3>
+<pre><code class="language-alef">
+import std.encoding { base64_encode, base64_decode }
+
+fn main() {
+    let wire = base64_encode(&quot;hello&quot;)
+    println(wire)
+    println(base64_decode(wire))
+}
+</code></pre>
+<h2>Notes</h2>
 <ul>
-<li>Keep <code>stub</code> available for CI and local docs runs.</li>
-<li>Gate live providers with environment variables — see <a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a>.</li>
-<li>Prefer explicit JSON request/response maps over hidden frameworks.</li>
-<li>Cookie sessions: <a href="docs__stdlib__http-json.html">HTTP cookies</a> + never store raw secrets client-side.</li>
-<li>Depth references: <a href="docs__stdlib__ai.html">AI</a> · <a href="docs__stdlib__jobs.html">Jobs</a> · <a href="docs__stdlib__crypto-encoding.html">Crypto</a>.</li>
-<li>Snapshot: <a href="docs__reference__whats-new-2026-07.html">What&#x27;s New — July 2026</a>.</li>
+<li>Prefer HMAC + short-lived tokens over putting secrets in cookies.</li>
+<li>Cookie helpers live on <code>std.http</code> — see <a href="docs__stdlib__http-json.html">HTTP And JSON</a>.</li>
+<li>July 2026 snapshot: <a href="docs__reference__whats-new-2026-07.html">What&#x27;s New</a>.</li>
 </ul>
   </main>
 </body>

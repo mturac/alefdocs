@@ -31,3 +31,15 @@ by `alef run` unless a page says otherwise.
 
 The stdlib is documented like a language stdlib: module by module, with
 runnable examples.
+
+## Module references
+
+| Page | Modules |
+|------|---------|
+| [HTTP And JSON](http-json.md) | `std.http`, cookies, headers |
+| [AI](ai.md) | `std.ai` completions, chat, tools |
+| [Database And Cache](db-cache.md) | `std.db`, `std.cache` |
+| [Crypto And Encoding](crypto-encoding.md) | `std.crypto`, `std.encoding` |
+| [Sync And Concurrent](sync-concurrent.md) | `std.sync`, `std.concurrent` |
+| [Time And IO](time-io.md) | `std.time`, `std.io` |
+| [Jobs](jobs.md) | `std.jobs` |

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Reference · Alef</title>
+  <title>Jobs · Alef</title>
   <link rel="icon" href="../assets/alef-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
@@ -13,74 +13,97 @@
     <nav><div class="nav-label">Start Here</div><a href="book__01-why-alef-is-a-language.html">1. Learning Alef From Zero</a><a href="book__02-installing-and-running.html">2. Installing And Running Alef</a><a href="book__03-your-first-program.html">3. Your First Alef Program</a><a href="docs__getting-started__quickstart.html">Quickstart</a><a href="docs__getting-started__project-structure.html">Project Structure</a><div class="nav-label">Language Guide</div><a href="book__04-values-bindings-functions.html">4. Syntax Fundamentals</a><a href="book__05-control-flow.html">5. Control Flow</a><a href="book__06-collections-data-modeling.html">6. Collections And Data Modeling</a><a href="book__07-results-options-errors.html">7. Results, Options, And Errors</a><a href="book__08-modules-project-structure.html">8. Modules And Project Structure</a><a href="docs__language__tour.html">Language Tour</a><a href="docs__language__variables.html">Variables</a><a href="docs__language__strings.html">Strings</a><a href="docs__language__functions.html">Functions</a><a href="docs__language__control-flow.html">Control Flow Guide</a><a href="docs__language__collections.html">Collections</a><a href="docs__language__structs-enums.html">Structs And Enums</a><a href="docs__language__results-errors.html">Results And Errors</a><a href="docs__language__modules.html">Modules</a><a href="docs__language__composition-ioc-di-aop.html">Composition, IoC, DI, And AOP</a><div class="nav-label">Runtime And Tooling</div><a href="book__09-cli-native-runtime.html">9. The Alef CLI And Native Runtime</a><a href="book__13-testing.html">13. Testing Alef Programs</a><a href="docs__runtime__cli.html">Command Reference</a><a href="docs__runtime__native-runtime.html">Native Runtime</a><a href="docs__runtime__testing.html">Testing</a><a href="docs__runtime__bytecode-jit.html">Bytecode And JIT</a><a href="docs__using__editor-tools.html">Editor Tools</a><a href="docs__using__diagnostics.html">Diagnostics</a><div class="nav-label">Standard Library</div><a href="book__10-http-json.html">10. HTTP And JSON</a><a href="book__11-database-cache-state.html">11. Database, Cache, And State</a><a href="book__12-ai-standard-library.html">12. AI As Standard Library</a><a href="docs__stdlib__overview.html">Standard Library Overview</a><a href="docs__stdlib__http-json.html">HTTP And JSON Reference</a><a href="docs__stdlib__db-cache.html">Database And Cache Reference</a><a href="docs__stdlib__ai.html">AI Reference</a><a href="docs__stdlib__crypto-encoding.html">Crypto And Encoding</a><a href="docs__stdlib__sync-concurrent.html">Sync And Concurrent</a><a href="docs__stdlib__time-io.html">Time And IO</a><a href="docs__stdlib__jobs.html">Jobs</a><div class="nav-label">Tutorials And Code Walkthroughs</div><a href="book__14-building-a-native-api.html">14. Building A Native API</a><a href="book__15-building-ticketdesk-ui.html">15. Building TicketDesk UI</a><a href="book__16-building-ai-ticket-router.html">16. Building An AI Ticket Router</a><a href="docs__tutorials__native-api.html">Native API Tutorial</a><a href="docs__tutorials__ticketdesk-ui.html">TicketDesk UI Tutorial</a><a href="docs__tutorials__ai-workflow.html">AI Workflow Tutorial</a><a href="docs__codewalks__ticketdesk-ui.html">TicketDesk Code Walk</a><a href="docs__codewalks__agent-ticket-router.html">Agent Ticket Router Code Walk</a><div class="nav-label">Cookbook</div><a href="docs__cookbook__json-apis.html">JSON APIs</a><a href="docs__cookbook__provider-gated-ai.html">Provider-Gated AI</a><a href="docs__cookbook__ai-agent-backend.html">AI Agent Backend</a><a href="docs__cookbook__server-rendered-ui.html">Server-Rendered UI</a><a href="docs__database__accessing-databases.html">Accessing Databases</a><a href="docs__database__database-smoke-tests.html">Database Smoke Tests</a><div class="nav-label">Modules And Packages</div><a href="docs__modules__developing-modules.html">Developing Modules</a><a href="docs__modules__publishing-examples.html">Publishing Examples</a><a href="docs__reference__alef-mod.html">alef.mod Reference</a><div class="nav-label">Using Alef Well</div><a href="docs__what-is-alef.html">What Is Alef</a><a href="docs__using__effective-alef.html">Effective Alef</a><a href="docs__using__faq.html">FAQ</a><div class="nav-label">Reference</div><a href="docs__reference__language-specification.html">Language Specification</a><a href="docs__reference__syntax.html">Syntax Reference</a><a href="docs__reference__examples.html">Examples Reference</a><a href="docs__reference__whats-new-2026-07.html">What's New — July 2026</a><a href="docs__reference__docs-roadmap.html">Documentation Roadmap</a><a href="docs__reference__release-notes.html">Release Notes</a><a href="docs__reference__gitbook-publishing.html">GitBook Publishing</a><a href="docs__reference__dedication.html">Dedication</a></nav>
   </aside>
   <main class="content">
-<h1>AI Providers</h1>
-<p>Alef treats AI provider calls as a standard-library surface.</p>
-<h2>Deterministic Stub</h2>
-<p>Use <code>stub</code> in docs and tests:</p>
+<h1>Jobs Reference</h1>
+<p>Native path. In-process job queues with drain, retry/dead-letter hooks, and</p>
+<p>optional persist/restore.</p>
+<h2><code>std.jobs</code></h2>
+<table>
+<tr>
+<th>Function</th>
+<th>Role</th>
+</tr>
+<tr>
+<td><code>make()</code></td>
+<td>Create a queue</td>
+</tr>
+<tr>
+<td><code>enqueue(q, job)</code></td>
+<td>Push a job map/value</td>
+</tr>
+<tr>
+<td><code>dequeue(q)</code></td>
+<td>Pop one job</td>
+</tr>
+<tr>
+<td><code>drain(q, n)</code></td>
+<td>Take up to <code>n</code> jobs</td>
+</tr>
+<tr>
+<td><code>len(q)</code></td>
+<td>Queue length</td>
+</tr>
+<tr>
+<td><code>stats(q)</code> / <code>metrics(q)</code></td>
+<td>Counters for observability</td>
+</tr>
+<tr>
+<td><code>mark_processed(q, ok)</code></td>
+<td>Record success path</td>
+</tr>
+<tr>
+<td><code>mark_failed(q, err)</code></td>
+<td>Record failure / dead-letter path</td>
+</tr>
+<tr>
+<td><code>persist(q, path)</code> / <code>restore(q, path)</code></td>
+<td>Optional disk hooks</td>
+</tr>
+<tr>
+<td><code>schedule</code> / <code>tick</code> / <code>schedules</code></td>
+<td>Delayed work helpers</td>
+</tr>
+</table>
+<h3>Minimal drain loop</h3>
 <pre><code class="language-alef">
+import std.jobs { make, enqueue, drain, mark_processed, mark_failed, stats }
+
 fn main() {
-    let r = std.ai.response_with(&quot;stub&quot;, &quot;Summarize this ticket&quot;)
-    println(r.provider)
-    println(r.text)
+    let q = make()
+    enqueue(q, { &quot;kind&quot; =&gt; &quot;ping&quot; })
+    enqueue(q, { &quot;kind&quot; =&gt; &quot;pong&quot; })
+
+    let batch = drain(q, 4)
+    for job in batch {
+        if job != null {
+            // process job[&quot;kind&quot;] here
+            mark_processed(q, true)
+        } else {
+            mark_failed(q, &quot;empty&quot;)
+        }
+    }
+    println(stats(q))
 }
 </code></pre>
-<p>The stub provider makes examples runnable without credentials.</p>
-<h2>Configured Provider</h2>
-<pre><code class="language-alef">
-let r = std.ai.response(&quot;Summarize this ticket&quot;)
+<pre><code class="language-bash">
+alef run main.alef
 </code></pre>
-<p>Use environment variables to configure live providers.</p>
-<h2>Named Providers</h2>
-<pre><code class="language-alef">
-let r = std.ai.response_with(&quot;ollama&quot;, &quot;hello&quot;)
-let r = std.ai.response_with(&quot;minimax&quot;, &quot;hello&quot;)
-let r = std.ai.response_with(&quot;mimo&quot;, &quot;hello&quot;)
-</code></pre>
-<p>Provider availability is environment-gated. A skipped live provider check is</p>
-<p>not a failure unless the task explicitly requires that provider.</p>
-<h2><code>call_llm</code> and <code>stream_llm</code></h2>
-<p>In addition to <code>response</code> and <code>response_with</code>, Alef supports lower-level interactions:</p>
-<pre><code class="language-alef">
-// Single call
-let result = std.ai.call_llm(&quot;ollama&quot;, &quot;Summarize this ticket&quot;);
-println(result);
-
-// Streaming call
-std.ai.stream_llm(&quot;ollama&quot;, &quot;Write a long story&quot;, fn(chunk) {
-    println(&quot;Received chunk: &quot; + chunk);
-});
-</code></pre>
-<h2><code>embed</code></h2>
-<p>Alef provides an <code>embed</code> function to generate embeddings from text.</p>
-<pre><code class="language-alef">
-let embedding = std.ai.embed(&quot;ollama&quot;, &quot;Hello world&quot;);
-println(embedding[0]); // First float in the embedding vector
-</code></pre>
-<h2>Chat helpers</h2>
-<p>Higher-level chat APIs accept message lists (role + content). Prefer them for</p>
-<p>multi-turn agents:</p>
-<pre><code class="language-alef">
-let r = std.ai.chat_with(&quot;stub&quot;, [
-    { &quot;role&quot; =&gt; &quot;system&quot;, &quot;content&quot; =&gt; &quot;You are a concise assistant.&quot; },
-    { &quot;role&quot; =&gt; &quot;user&quot;, &quot;content&quot; =&gt; &quot;Summarize: deploy failed on auth&quot; }
-])
-println(r.text)
-</code></pre>
-<p>Streaming variants exist for token/chunk delivery (<code>stream</code>, <code>chat_stream</code>, and</p>
-<p><code>*_with</code> / <code>*_options</code> forms depending on release). Always keep a <code>stub</code> path</p>
-<p>for docs and tests.</p>
-<h2>Tool-calling (advanced)</h2>
-<p>Some providers support tool/function calls via <code>chat_with_tools</code> style APIs.</p>
-<p>Treat tool schemas as application data (maps/JSON), not as a separate language</p>
-<p>feature. Gate live providers with environment checks.</p>
-<h2>Pairing AI with HTTP and jobs</h2>
-<p>A common production shape is:</p>
-<p>1. <code>std.http</code> serves <code>/api/chat</code>, <code>/api/history</code>, health, and shutdown.</p>
-<p>2. <code>std.ai</code> answers prompts (stub in CI, real provider in prod).</p>
-<p>3. <code>std.db</code> stores sessions.</p>
-<p>4. <code>std.jobs</code> runs background work with retry.</p>
-<p>See <a href="docs__reference__whats-new-2026-07.html">What&#x27;s New — July 2026</a> and the</p>
-<p><a href="docs__tutorials__ai-workflow.html">AI workflow tutorial</a>.</p>
+<h3>Persist sketch</h3>
+<p>When your app needs restart survival, call <code>persist</code> after enqueue bursts and</p>
+<p><code>restore</code> on boot. Paths and exact map shapes follow the binary you ship —</p>
+<p>verify with a small local program before production.</p>
+<h2>Agent backend pattern</h2>
+<ul>
+<li>1. HTTP handler enqueues side work (<code>audit</code>, <code>webhook</code>).</li>
+<li>2. A drain loop (same process or worker tick) processes the batch.</li>
+<li>3. Failures go through <code>mark_failed</code> so dead-letter counts stay visible.</li>
+</ul>
+<p>See <a href="docs__cookbook__ai-agent-backend.html">AI Agent Backend</a> for the end-to-end recipe.</p>
+<h2>Related</h2>
+<ul>
+<li><a href="docs__stdlib__ai.html">AI Reference</a></li>
+<li><a href="docs__stdlib__db-cache.html">Database And Cache</a></li>
+<li><a href="docs__reference__whats-new-2026-07.html">What&#x27;s New — July 2026</a></li>
+</ul>
   </main>
 </body>
 </html>
