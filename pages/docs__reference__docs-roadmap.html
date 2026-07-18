@@ -14,14 +14,10 @@
   </aside>
   <main class="content">
 <h1>Documentation Roadmap</h1>
-<p>Public docs are a <strong>living product</strong>. The install → book → core stdlib path is</p>
-<p>shipped; everything after that is <strong>actively expanding</strong> — not a closed project</p>
-<p>with a finish line.</p>
-<p>This page is the progress tracker for <a href="https://mturac.github.io/alefdocs/">AlefDocs</a>.</p>
-<p>Private language/runtime source stays private. Metrics here are <strong>docs-only</strong>.</p>
-<p>Live: <a href="https://mturac.github.io/alefdocs/">mturac.github.io/alefdocs</a> ·</p>
-<p>Repo: <a href="https://github.com/mturac/alefdocs">github.com/mturac/alefdocs</a></p>
-<p><strong>Updated:</strong> 2026-07-18</p>
+<p><strong>We are still building these docs.</strong> This is not a closed checklist with a finish line. Install → book → core stdlib is a <strong>baseline you can use today</strong>; everything else is <strong>active expansion</strong> — more recipes, more depth, more surfaces over time.</p>
+<p>This page is the public progress tracker for <a href="https://mturac.github.io/alefdocs/">AlefDocs</a>. Private language/runtime source stays private. Metrics here are <strong>docs-only</strong>.</p>
+<p>Live: <a href="https://mturac.github.io/alefdocs/">mturac.github.io/alefdocs</a> · Repo: <a href="https://github.com/mturac/alefdocs">github.com/mturac/alefdocs</a></p>
+<p><strong>Updated:</strong> 2026-07-18 · <strong>Mode:</strong> expand · polish · ship next slice</p>
 <h2>How to read this</h2>
 <table>
 <tr>
@@ -29,12 +25,12 @@
 <th>Meaning</th>
 </tr>
 <tr>
-<td><strong>Shipped</strong></td>
-<td>On the public site today; keep polishing in place</td>
+<td><strong>Live</strong></td>
+<td>On the public site today — still open to polish and deeper examples</td>
 </tr>
 <tr>
 <td><strong>Building</strong></td>
-<td>Active docs work right now</td>
+<td>Active docs work right now (the “we’re developing this” lane)</td>
 </tr>
 <tr>
 <td><strong>Queued</strong></td>
@@ -45,15 +41,14 @@
 <td>Direction of travel; no fake ship dates</td>
 </tr>
 </table>
-<p>We will keep adding pages, recipes, and depth. A “Done” foundation does <strong>not</strong></p>
-<p>mean the docs stop growing.</p>
+<p>There is no “docs v1 done, stop.” A live baseline means strangers can learn and run programs. Expansion means we <strong>keep adding</strong> pages, recipes, and depth.</p>
 <hr>
-<h2>Two tracks</h2>
+<h2>Where we are going (read this first)</h2>
 <pre><code class="language-text">
-FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
+BASELINE (usable today)       EXPANSION (what we keep building)
 [████████████] install, book,   [██░░░░░░░░░░░░░░░░░░░░] agent path,
                core stdlib,                   recipes, API index,
-               July 2026 notes                locales, depth track…
+               July 2026 notes                locales, more apps…
 </code></pre>
 <table>
 <tr>
@@ -61,7 +56,7 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 <th>What it means</th>
 </tr>
 <tr>
-<td><strong>Foundation</strong></td>
+<td><strong>Baseline</strong></td>
 <td>A stranger can install, learn syntax, run HTTP + stub AI</td>
 </tr>
 <tr>
@@ -69,7 +64,32 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 <td>Deeper stdlib, production-shaped recipes, better nav, more surfaces</td>
 </tr>
 </table>
-<p>Expansion is the long game. Expect this bar to move for a long time.</p>
+<p><strong>Expansion is the product of this roadmap.</strong> Expect the right-hand bar to move for a long time — that is intentional.</p>
+<h3>Building now</h3>
+<table>
+<tr>
+<th>Theme</th>
+<th>What “done enough” looks like next</th>
+</tr>
+<tr>
+<td><strong>Agent backend path</strong></td>
+<td>One copy-pasteable recipe: chat API + history + stub AI + clean shutdown</td>
+</tr>
+<tr>
+<td><strong>Cookbook recipes</strong></td>
+<td>Rate limit / auth sketches, session migrations, webhook + job retry</td>
+</tr>
+<tr>
+<td><strong>Stdlib depth</strong></td>
+<td>More primitives and walkthroughs on pages already live (crypto, sync, jobs…)</td>
+</tr>
+</table>
+<p>Start here while we expand:</p>
+<ul>
+<li><a href="docs__cookbook__ai-agent-backend.html">AI Agent Backend</a> · Building</li>
+<li><a href="docs__stdlib__jobs.html">Jobs</a> · Live · more recipes coming</li>
+<li><a href="docs__reference__whats-new-2026-07.html">What&#x27;s New — July 2026</a> · snapshot, not a freeze</li>
+</ul>
 <hr>
 <h2>At a glance</h2>
 <table>
@@ -81,32 +101,32 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 <tr>
 <td>0</td>
 <td>Public docs home (this site + GitHub Pages)</td>
-<td><strong>Shipped</strong></td>
+<td><strong>Live</strong></td>
 </tr>
 <tr>
 <td>1</td>
 <td>Zero-to-run (install → first program)</td>
-<td><strong>Shipped</strong></td>
+<td><strong>Live</strong></td>
 </tr>
 <tr>
 <td>2</td>
 <td>Language book (syntax through modules)</td>
-<td><strong>Shipped</strong></td>
+<td><strong>Live</strong></td>
 </tr>
 <tr>
 <td>3</td>
 <td>Runtime + core stdlib (HTTP, JSON, DB, AI)</td>
-<td><strong>Shipped</strong></td>
+<td><strong>Live</strong></td>
 </tr>
 <tr>
 <td>4</td>
 <td>July 2026 maturity snapshot</td>
-<td><strong>Shipped</strong></td>
+<td><strong>Live</strong></td>
 </tr>
 <tr>
 <td>5</td>
 <td>Stdlib depth pages (crypto, sync, time, io, jobs)</td>
-<td><strong>Shipped</strong> · keep deepening</td>
+<td><strong>Live</strong> · keep deepening</td>
 </tr>
 <tr>
 <td>6</td>
@@ -145,56 +165,9 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 </tr>
 </table>
 <hr>
-<h2>Foundation — shipped (keep polishing)</h2>
-<h3>Phase 0 — Docs home</h3>
-<ul>
-<li>Separate public repo: <code>mturac/alefdocs</code></li>
-<li>GitHub Pages from <code>main</code> → https://mturac.github.io/alefdocs/</li>
-<li>Native-first branding; private source + public docs/binaries</li>
-</ul>
-<h3>Phase 1 — Zero-to-run</h3>
-<p>Book 1–3, quickstart, FAQ. Exit met: <code>alef run main.alef</code> without a private checkout.</p>
-<h3>Phase 2 — Language book</h3>
-<p>Book 4–8, language tour, advanced notes. Exit met: core syntax teachable as a language.</p>
-<h3>Phase 3 — Runtime and core stdlib</h3>
-<p>Book 9–13, HTTP/AI/DB refs, native API / TicketDesk tutorials. Exit met: small HTTP service + stub AI.</p>
-<h3>Phase 4 — July 2026 snapshot</h3>
-<p><a href="docs__reference__whats-new-2026-07.html">What&#x27;s New</a> · <a href="docs__reference__release-notes.html">Release notes</a> · macOS <code>codesign</code> install note.</p>
-<p>Honest line: <strong>AI-native + native-first</strong>, not full Go/.NET stdlib parity.</p>
-<h3>Phase 5 — Stdlib depth (first pass shipped)</h3>
-<table>
-<tr>
-<th>Page</th>
-<th>Status</th>
-</tr>
-<tr>
-<td><a href="docs__stdlib__crypto-encoding.html">Crypto And Encoding</a></td>
-<td>Shipped · more primitives later</td>
-</tr>
-<tr>
-<td><a href="docs__stdlib__sync-concurrent.html">Sync And Concurrent</a></td>
-<td>Shipped · expand catalog</td>
-</tr>
-<tr>
-<td><a href="docs__stdlib__time-io.html">Time And IO</a></td>
-<td>Shipped · more examples</td>
-</tr>
-<tr>
-<td><a href="docs__stdlib__jobs.html">Jobs</a></td>
-<td>Shipped · persist/retry recipes</td>
-</tr>
-<tr>
-<td>HTTP cookies/headers in <a href="docs__stdlib__http-json.html">HTTP ref</a></td>
-<td>Shipped</td>
-</tr>
-</table>
-<p><strong>Still to grow here:</strong> AES/Ed25519 walkthroughs, full sync primitive catalog,</p>
-<p>stream composition recipes, job dead-letter playbooks.</p>
-<hr>
-<h2>Expansion — we are still building</h2>
+<h2>Expansion — still building</h2>
 <h3>Phase 6 — Agent backend path · Building</h3>
-<p>Goal: one <strong>copy-pasteable</strong> public recipe — chat API + history + stub AI +</p>
-<p>shutdown — from docs alone.</p>
+<p>Goal: one <strong>copy-pasteable</strong> public recipe — chat API + history + stub AI + shutdown — from docs alone.</p>
 <table>
 <tr>
 <th>Work</th>
@@ -202,7 +175,7 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 </tr>
 <tr>
 <td><a href="docs__cookbook__ai-agent-backend.html">AI Agent Backend cookbook</a></td>
-<td>Skeleton + checklist shipped</td>
+<td>Skeleton + checklist live · deepen</td>
 </tr>
 <tr>
 <td>Multi-turn chat (stub-safe)</td>
@@ -222,14 +195,14 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 </tr>
 </table>
 <h3>Phase 7 — Cookbook expansion · Building / Queued</h3>
-<p>Recipes we intend to grow into full pages (not vapor — ordered by usefulness):</p>
+<p>Recipes we intend to grow into full pages (ordered by usefulness, not vapor):</p>
 <ul>
-<li>1. Provider-gated live AI (stub stays default for CI)</li>
-<li>2. Rate limit + auth middleware sketches</li>
-<li>3. SQLite migrations for chat sessions</li>
-<li>4. <code>alef.mod</code> small-library / vendor sketch</li>
-<li>5. Webhook + job retry patterns</li>
-<li>6. Health, metrics, graceful shutdown checklist</li>
+<li>Provider-gated live AI (stub stays default for CI)</li>
+<li>Rate limit + auth middleware sketches</li>
+<li>SQLite migrations for chat sessions</li>
+<li><code>alef.mod</code> small-library / vendor sketch</li>
+<li>Webhook + job retry patterns</li>
+<li>Health, metrics, graceful shutdown checklist</li>
 </ul>
 <h3>Phase 8 — Spec and navigation · Queued</h3>
 <ul>
@@ -274,21 +247,67 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 </table>
 <p>Horizon items get phase rows when work actually starts. No undated “soon”.</p>
 <hr>
+<h2>Baseline already on the site</h2>
+<p>Still open to polish. “Live” ≠ “frozen.”</p>
+<h3>Phase 0 — Docs home</h3>
+<ul>
+<li>Separate public repo: <code>mturac/alefdocs</code></li>
+<li>GitHub Pages from <code>main</code> → https://mturac.github.io/alefdocs/</li>
+<li>Native-first branding; private source + public docs/binaries</li>
+</ul>
+<h3>Phase 1 — Zero-to-run</h3>
+<p>Book 1–3, quickstart, FAQ. Exit met: <code>alef run main.alef</code> without a private checkout.</p>
+<h3>Phase 2 — Language book</h3>
+<p>Book 4–8, language tour, advanced notes. Exit met: core syntax teachable as a language.</p>
+<h3>Phase 3 — Runtime and core stdlib</h3>
+<p>Book 9–13, HTTP/AI/DB refs, native API / TicketDesk tutorials. Exit met: small HTTP service + stub AI.</p>
+<h3>Phase 4 — July 2026 snapshot</h3>
+<p><a href="docs__reference__whats-new-2026-07.html">What&#x27;s New</a> · <a href="docs__reference__release-notes.html">Release notes</a> · macOS <code>codesign</code> install note.</p>
+<p>Honest line: <strong>AI-native + native-first</strong>, not full Go/.NET stdlib parity.</p>
+<h3>Phase 5 — Stdlib depth (first pass live)</h3>
+<table>
+<tr>
+<th>Page</th>
+<th>Status</th>
+</tr>
+<tr>
+<td><a href="docs__stdlib__crypto-encoding.html">Crypto And Encoding</a></td>
+<td>Live · more primitives later</td>
+</tr>
+<tr>
+<td><a href="docs__stdlib__sync-concurrent.html">Sync And Concurrent</a></td>
+<td>Live · expand catalog</td>
+</tr>
+<tr>
+<td><a href="docs__stdlib__time-io.html">Time And IO</a></td>
+<td>Live · more examples</td>
+</tr>
+<tr>
+<td><a href="docs__stdlib__jobs.html">Jobs</a></td>
+<td>Live · persist/retry recipes</td>
+</tr>
+<tr>
+<td>HTTP cookies/headers in <a href="docs__stdlib__http-json.html">HTTP ref</a></td>
+<td>Live</td>
+</tr>
+</table>
+<p><strong>Still to grow here:</strong> AES/Ed25519 walkthroughs, full sync primitive catalog, stream composition recipes, job dead-letter playbooks.</p>
+<hr>
 <h2>What we will not track here</h2>
 <ul>
 <li>Private compiler inventory / LR-0 style internal counts</li>
 <li>“Every Go package” as a docs success metric</li>
-<li>Fake completion percentages for the language itself</li>
+<li>Fake completion percentages (“docs are 75% done”) for the language or this site</li>
 </ul>
 <hr>
 <h2>Suggested reading order</h2>
 <ul>
-<li>1. <a href="book__02-installing-and-running.html">Install</a></li>
-<li>2. <a href="book__03-your-first-program.html">First program</a></li>
-<li>3. <a href="docs__language__tour.html">Language tour</a></li>
-<li>4. <a href="docs__stdlib__http-json.html">HTTP</a> → <a href="docs__stdlib__ai.html">AI</a></li>
-<li>5. <a href="docs__reference__whats-new-2026-07.html">What&#x27;s New — July 2026</a></li>
-<li>6. <strong>This roadmap</strong> — what is shipping next on the public docs</li>
+<li><a href="book__02-installing-and-running.html">Install</a></li>
+<li><a href="book__03-your-first-program.html">First program</a></li>
+<li><a href="docs__language__tour.html">Language tour</a></li>
+<li><a href="docs__stdlib__http-json.html">HTTP</a> → <a href="docs__stdlib__ai.html">AI</a></li>
+<li><a href="docs__reference__whats-new-2026-07.html">What&#x27;s New — July 2026</a></li>
+<li><strong>This roadmap</strong> — what we are expanding next on the public docs</li>
 </ul>
 <hr>
 <h2>Change log</h2>
@@ -307,7 +326,11 @@ FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
 </tr>
 <tr>
 <td>2026-07-18</td>
-<td>Reframe: foundation shipped, expansion ongoing (Building / Queued / Horizon)</td>
+<td>Reframe: foundation shipped, expansion ongoing</td>
+</tr>
+<tr>
+<td>2026-07-18</td>
+<td>Voice: “still building” first; Live (not Done); expansion before baseline</td>
 </tr>
 </table>
   </main>

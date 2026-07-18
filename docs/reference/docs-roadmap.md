@@ -1,46 +1,63 @@
 # Documentation Roadmap
 
-Public docs are a **living product**. The install → book → core stdlib path is
-shipped; everything after that is **actively expanding** — not a closed project
-with a finish line.
+**We are still building these docs.** This is not a closed checklist with a
+finish line. Install → book → core stdlib is a **baseline you can use today**;
+everything else is **active expansion** — more recipes, more depth, more
+surfaces over time.
 
-This page is the progress tracker for [AlefDocs](https://mturac.github.io/alefdocs/).
-Private language/runtime source stays private. Metrics here are **docs-only**.
+This page is the public progress tracker for
+[AlefDocs](https://mturac.github.io/alefdocs/). Private language/runtime source
+stays private. Metrics here are **docs-only**.
 
 Live: [mturac.github.io/alefdocs](https://mturac.github.io/alefdocs/) ·
 Repo: [github.com/mturac/alefdocs](https://github.com/mturac/alefdocs)
 
-**Updated:** 2026-07-18
+**Updated:** 2026-07-18 · **Mode:** expand · polish · ship next slice
 
 ## How to read this
 
 | Status | Meaning |
 |--------|---------|
-| **Shipped** | On the public site today; keep polishing in place |
-| **Building** | Active docs work right now |
+| **Live** | On the public site today — still open to polish and deeper examples |
+| **Building** | Active docs work right now (the “we’re developing this” lane) |
 | **Queued** | Next after Building; order can shift |
 | **Horizon** | Direction of travel; no fake ship dates |
 
-We will keep adding pages, recipes, and depth. A “Done” foundation does **not**
-mean the docs stop growing.
+There is no “docs v1 done, stop.” A live baseline means strangers can learn and
+run programs. Expansion means we **keep adding** pages, recipes, and depth.
 
 ---
 
-## Two tracks
+## Where we are going (read this first)
 
 ```text
-FOUNDATION (shipped)          EXPANSION (ongoing → horizon)
+BASELINE (usable today)       EXPANSION (what we keep building)
 [████████████] install, book,   [██░░░░░░░░░░░░░░░░░░░░] agent path,
                core stdlib,                   recipes, API index,
-               July 2026 notes                locales, depth track…
+               July 2026 notes                locales, more apps…
 ```
 
 | Track | What it means |
 |-------|----------------|
-| **Foundation** | A stranger can install, learn syntax, run HTTP + stub AI |
+| **Baseline** | A stranger can install, learn syntax, run HTTP + stub AI |
 | **Expansion** | Deeper stdlib, production-shaped recipes, better nav, more surfaces |
 
-Expansion is the long game. Expect this bar to move for a long time.
+**Expansion is the product of this roadmap.** Expect the right-hand bar to move
+for a long time — that is intentional.
+
+### Building now
+
+| Theme | What “done enough” looks like next |
+|-------|-------------------------------------|
+| **Agent backend path** | One copy-pasteable recipe: chat API + history + stub AI + clean shutdown |
+| **Cookbook recipes** | Rate limit / auth sketches, session migrations, webhook + job retry |
+| **Stdlib depth** | More primitives and walkthroughs on pages already live (crypto, sync, jobs…) |
+
+Start here while we expand:
+
+- [AI Agent Backend](../cookbook/ai-agent-backend.md) · Building
+- [Jobs](../stdlib/jobs.md) · Live · more recipes coming
+- [What's New — July 2026](whats-new-2026-07.md) · snapshot, not a freeze
 
 ---
 
@@ -48,12 +65,12 @@ Expansion is the long game. Expect this bar to move for a long time.
 
 | # | Theme | Status |
 |---|--------|--------|
-| 0 | Public docs home (this site + GitHub Pages) | **Shipped** |
-| 1 | Zero-to-run (install → first program) | **Shipped** |
-| 2 | Language book (syntax through modules) | **Shipped** |
-| 3 | Runtime + core stdlib (HTTP, JSON, DB, AI) | **Shipped** |
-| 4 | July 2026 maturity snapshot | **Shipped** |
-| 5 | Stdlib depth pages (crypto, sync, time, io, jobs) | **Shipped** · keep deepening |
+| 0 | Public docs home (this site + GitHub Pages) | **Live** |
+| 1 | Zero-to-run (install → first program) | **Live** |
+| 2 | Language book (syntax through modules) | **Live** |
+| 3 | Runtime + core stdlib (HTTP, JSON, DB, AI) | **Live** |
+| 4 | July 2026 maturity snapshot | **Live** |
+| 5 | Stdlib depth pages (crypto, sync, time, io, jobs) | **Live** · keep deepening |
 | 6 | Agent backend path (chat + sessions + jobs) | **Building** |
 | 7 | Cookbook: production-shaped recipes | **Building** / **Queued** |
 | 8 | Spec gaps + navigation UX | **Queued** |
@@ -64,48 +81,7 @@ Expansion is the long game. Expect this bar to move for a long time.
 
 ---
 
-## Foundation — shipped (keep polishing)
-
-### Phase 0 — Docs home
-
-- Separate public repo: `mturac/alefdocs`
-- GitHub Pages from `main` → https://mturac.github.io/alefdocs/
-- Native-first branding; private source + public docs/binaries
-
-### Phase 1 — Zero-to-run
-
-Book 1–3, quickstart, FAQ. Exit met: `alef run main.alef` without a private checkout.
-
-### Phase 2 — Language book
-
-Book 4–8, language tour, advanced notes. Exit met: core syntax teachable as a language.
-
-### Phase 3 — Runtime and core stdlib
-
-Book 9–13, HTTP/AI/DB refs, native API / TicketDesk tutorials. Exit met: small HTTP service + stub AI.
-
-### Phase 4 — July 2026 snapshot
-
-[What's New](whats-new-2026-07.md) · [Release notes](release-notes.md) · macOS `codesign` install note.
-
-Honest line: **AI-native + native-first**, not full Go/.NET stdlib parity.
-
-### Phase 5 — Stdlib depth (first pass shipped)
-
-| Page | Status |
-|------|--------|
-| [Crypto And Encoding](../stdlib/crypto-encoding.md) | Shipped · more primitives later |
-| [Sync And Concurrent](../stdlib/sync-concurrent.md) | Shipped · expand catalog |
-| [Time And IO](../stdlib/time-io.md) | Shipped · more examples |
-| [Jobs](../stdlib/jobs.md) | Shipped · persist/retry recipes |
-| HTTP cookies/headers in [HTTP ref](../stdlib/http-json.md) | Shipped |
-
-**Still to grow here:** AES/Ed25519 walkthroughs, full sync primitive catalog,
-stream composition recipes, job dead-letter playbooks.
-
----
-
-## Expansion — we are still building
+## Expansion — still building
 
 ### Phase 6 — Agent backend path · Building
 
@@ -114,7 +90,7 @@ shutdown — from docs alone.
 
 | Work | Status |
 |------|--------|
-| [AI Agent Backend cookbook](../cookbook/ai-agent-backend.md) | Skeleton + checklist shipped |
+| [AI Agent Backend cookbook](../cookbook/ai-agent-backend.md) | Skeleton + checklist live · deepen |
 | Multi-turn chat (stub-safe) | Partial · deepen |
 | Streaming chat notes | Partial · more examples |
 | Sessions with `std.db` | Sketch · full runnable recipe next |
@@ -122,7 +98,7 @@ shutdown — from docs alone.
 
 ### Phase 7 — Cookbook expansion · Building / Queued
 
-Recipes we intend to grow into full pages (not vapor — ordered by usefulness):
+Recipes we intend to grow into full pages (ordered by usefulness, not vapor):
 
 1. Provider-gated live AI (stub stays default for CI)
 2. Rate limit + auth middleware sketches
@@ -160,11 +136,54 @@ Horizon items get phase rows when work actually starts. No undated “soon”.
 
 ---
 
+## Baseline already on the site
+
+Still open to polish. “Live” ≠ “frozen.”
+
+### Phase 0 — Docs home
+
+- Separate public repo: `mturac/alefdocs`
+- GitHub Pages from `main` → https://mturac.github.io/alefdocs/
+- Native-first branding; private source + public docs/binaries
+
+### Phase 1 — Zero-to-run
+
+Book 1–3, quickstart, FAQ. Exit met: `alef run main.alef` without a private checkout.
+
+### Phase 2 — Language book
+
+Book 4–8, language tour, advanced notes. Exit met: core syntax teachable as a language.
+
+### Phase 3 — Runtime and core stdlib
+
+Book 9–13, HTTP/AI/DB refs, native API / TicketDesk tutorials. Exit met: small HTTP service + stub AI.
+
+### Phase 4 — July 2026 snapshot
+
+[What's New](whats-new-2026-07.md) · [Release notes](release-notes.md) · macOS `codesign` install note.
+
+Honest line: **AI-native + native-first**, not full Go/.NET stdlib parity.
+
+### Phase 5 — Stdlib depth (first pass live)
+
+| Page | Status |
+|------|--------|
+| [Crypto And Encoding](../stdlib/crypto-encoding.md) | Live · more primitives later |
+| [Sync And Concurrent](../stdlib/sync-concurrent.md) | Live · expand catalog |
+| [Time And IO](../stdlib/time-io.md) | Live · more examples |
+| [Jobs](../stdlib/jobs.md) | Live · persist/retry recipes |
+| HTTP cookies/headers in [HTTP ref](../stdlib/http-json.md) | Live |
+
+**Still to grow here:** AES/Ed25519 walkthroughs, full sync primitive catalog,
+stream composition recipes, job dead-letter playbooks.
+
+---
+
 ## What we will not track here
 
 - Private compiler inventory / LR-0 style internal counts
 - “Every Go package” as a docs success metric
-- Fake completion percentages for the language itself
+- Fake completion percentages (“docs are 75% done”) for the language or this site
 
 ---
 
@@ -175,7 +194,7 @@ Horizon items get phase rows when work actually starts. No undated “soon”.
 3. [Language tour](../language/tour.md)
 4. [HTTP](../stdlib/http-json.md) → [AI](../stdlib/ai.md)
 5. [What's New — July 2026](whats-new-2026-07.md)
-6. **This roadmap** — what is shipping next on the public docs
+6. **This roadmap** — what we are expanding next on the public docs
 
 ---
 
@@ -185,4 +204,5 @@ Horizon items get phase rows when work actually starts. No undated “soon”.
 |------|------|
 | 2026-07-18 | Initial roadmap |
 | 2026-07-18 | Phase 5 stdlib pages + agent cookbook |
-| 2026-07-18 | Reframe: foundation shipped, expansion ongoing (Building / Queued / Horizon) |
+| 2026-07-18 | Reframe: foundation shipped, expansion ongoing |
+| 2026-07-18 | Voice: “still building” first; Live (not Done); expansion before baseline |
