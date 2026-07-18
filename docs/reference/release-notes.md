@@ -7,6 +7,8 @@ source stay private; this site is the public contract for learning and APIs.
 
 ### Public docs project
 
+- Progress tracker: [Documentation Roadmap](docs-roadmap.md)
+
 - Canonical public documentation is **AlefDocs**:
   [github.com/mturac/alefdocs](https://github.com/mturac/alefdocs)
 - Live site: [mturac.github.io/alefdocs](https://mturac.github.io/alefdocs/)

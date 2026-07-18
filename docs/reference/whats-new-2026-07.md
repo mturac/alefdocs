@@ -148,3 +148,7 @@ What that means for you:
 - [AI Reference](../stdlib/ai.md)
 - [HTTP And JSON](../stdlib/http-json.md)
 - [Installing And Running](../../book/02-installing-and-running.md)
+
+## Documentation progress
+
+See the [Documentation Roadmap](docs-roadmap.md) for Done / Now / Next phases.

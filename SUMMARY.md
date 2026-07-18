@@ -89,6 +89,7 @@
 * [Syntax Reference](docs/reference/syntax.md)
 * [Examples Reference](docs/reference/examples.md)
 * [What's New — July 2026](docs/reference/whats-new-2026-07.md)
+* [Documentation Roadmap](docs/reference/docs-roadmap.md)
 * [Release Notes](docs/reference/release-notes.md)
 * [GitBook Publishing](docs/reference/gitbook-publishing.md)
 * [Dedication](docs/reference/dedication.md)
